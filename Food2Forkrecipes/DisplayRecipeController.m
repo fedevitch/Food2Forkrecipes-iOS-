@@ -82,9 +82,10 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 
     
 //    self.TextOfDetails = self.titleRecipe;
-//    self.NavigationBar.topItem.title = @"title!";
+//    self.NavigationBar.topItem.title = self.titleRecipe;
 //    self.title = self.titleRecipe;
-    self.NavigationBar.topItem.title = self.titleRecipe;
+    self.navigationController.navigationBar.topItem.title = self.titleRecipe;
+//    [self.NavigationBar.topItem setTitle:self.titleRecipe];
     //NSLog(@"TITLE: %@",self.titleRecipe);
     NSLog(@"text: %@",Recipe);
     self.Text.text = [self parseHtmlCodes:Recipe];

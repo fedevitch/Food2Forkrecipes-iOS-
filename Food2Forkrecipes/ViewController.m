@@ -222,8 +222,6 @@ int recipesCount = 0;
 
 }
 
-
-
 #pragma mark - custom methods
 
 -(NSString*)parseHtmlCodes:(NSString*)input {
