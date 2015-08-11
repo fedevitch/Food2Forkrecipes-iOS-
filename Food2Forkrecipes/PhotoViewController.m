@@ -20,12 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    //[self.view setBackgroundColor:[UIColor whiteColor]];
     
     UIImageView *imageView = [[UIImageView alloc] init];
     
     [imageView setImageWithURL:[NSURL URLWithString:self.imageFilename]];
-    imageView.frame = CGRectMake(10,10,300,300);
+    imageView.frame = CGRectMake(0,0,300,300);
     
     [self.view addSubview:imageView];
 }

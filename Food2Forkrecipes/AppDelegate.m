@@ -21,20 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    //view
-//    ViewController *tableViewController = [[ViewController alloc] init];
-//    self.window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 380, 650)];
-//    self.window.rootViewController = tableViewController;
 
-    //custom table view controller
-//    RecipesTableViewController *tableViewController = [[RecipesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//
-//    self.window.rootViewController = tableViewController;
-    
-//    [self.window makeKeyAndVisible];
     return YES;
 }
 

@@ -17,11 +17,17 @@
 @property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property (strong, nonatomic) IBOutlet UIButton *previousButton;
 
+
+//data containers
 @property (strong, nonatomic) NSDictionary *queryResponse;
 @property (strong, nonatomic) NSMutableArray *titlesList;
 @property (strong, nonatomic) NSMutableArray *imagesList;
 @property (strong, nonatomic) NSMutableArray *publisher;
 @property (strong, nonatomic) NSMutableArray *social_rank;
+@property (strong, nonatomic) NSMutableArray *recipe_id;
+@property (strong, nonatomic) NSMutableArray *publisher_url;
+@property (strong, nonatomic) NSMutableArray *source_url;
+@property (strong, nonatomic) NSMutableArray *f2f_url;
 
 @end
 

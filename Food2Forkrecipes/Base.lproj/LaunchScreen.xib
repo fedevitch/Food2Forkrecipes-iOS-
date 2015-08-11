@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -10,21 +11,35 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Food2Fork recipes" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZlU-Qc-uB6">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Food2Fork recipes" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZlU-Qc-uB6">
                     <rect key="frame" x="95" y="225" width="136" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hAU-gb-Wf8">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hAU-gb-Wf8">
                     <rect key="frame" x="153" y="296" width="20" height="20"/>
                 </activityIndicatorView>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="please wait..." borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRP-4g-5Hd">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="please wait..." borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eRP-4g-5Hd">
                     <rect key="frame" x="112" y="324" width="103" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="height" secondItem="hAU-gb-Wf8" secondAttribute="height" constant="10" id="5jx-fO-k4D"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="top" secondItem="hAU-gb-Wf8" secondAttribute="bottom" constant="8" symbolic="YES" id="95f-P3-A76"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="width" secondItem="ZlU-Qc-uB6" secondAttribute="width" constant="-33" id="MUD-2j-z27"/>
+                <constraint firstItem="hAU-gb-Wf8" firstAttribute="top" secondItem="ZlU-Qc-uB6" secondAttribute="bottom" constant="41" id="PcI-HB-1Fy"/>
+                <constraint firstItem="ZlU-Qc-uB6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="95" id="SXJ-W3-zjy"/>
+                <constraint firstItem="ZlU-Qc-uB6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YMz-kd-VBY"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="width" secondItem="hAU-gb-Wf8" secondAttribute="height" multiplier="103:20" id="aAW-Rs-iL9"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="height" secondItem="ZlU-Qc-uB6" secondAttribute="height" id="esS-dY-EGc"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="width" secondItem="hAU-gb-Wf8" secondAttribute="width" constant="83" id="gxp-p1-AQf"/>
+                <constraint firstItem="hAU-gb-Wf8" firstAttribute="centerX" secondItem="ZlU-Qc-uB6" secondAttribute="centerX" id="ma7-eB-HZu"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="width" secondItem="ZlU-Qc-uB6" secondAttribute="height" multiplier="103:30" id="ndD-nl-wiu"/>
+                <constraint firstItem="eRP-4g-5Hd" firstAttribute="centerX" secondItem="hAU-gb-Wf8" secondAttribute="centerX" id="z3K-SD-Fnc"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="468" y="455"/>

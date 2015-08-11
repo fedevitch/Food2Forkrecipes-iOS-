@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8736C2FE1C59A2D720DD4713 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 289FF162D15AEDB0D4BAFE59 /* libPods.a */; };
-		ACD74BB81B74CA3C008092E9 /* RecipesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD74BB71B74CA3C008092E9 /* RecipesTableViewController.m */; };
-		ACD74BBB1B74CABC008092E9 /* RecipesQuerySender.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD74BBA1B74CABC008092E9 /* RecipesQuerySender.m */; };
 		ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */; };
 		ACE079971B72316100311028 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079961B72316100311028 /* main.m */; };
 		ACE0799A1B72316100311028 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079991B72316100311028 /* AppDelegate.m */; };
@@ -33,10 +31,6 @@
 /* Begin PBXFileReference section */
 		289FF162D15AEDB0D4BAFE59 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9377D38E94E7983C0E5F9234 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../../../../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		ACD74BB61B74CA3C008092E9 /* RecipesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipesTableViewController.h; sourceTree = "<group>"; };
-		ACD74BB71B74CA3C008092E9 /* RecipesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesTableViewController.m; sourceTree = "<group>"; };
-		ACD74BB91B74CA99008092E9 /* RecipesQuerySender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesQuerySender.h; sourceTree = "<group>"; };
-		ACD74BBA1B74CABC008092E9 /* RecipesQuerySender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesQuerySender.m; sourceTree = "<group>"; };
 		ACD74BBC1B74D8E6008092E9 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		ACE079911B72316100311028 /* Food2Forkrecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Forkrecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,10 +101,6 @@
 			children = (
 				ACE079981B72316100311028 /* AppDelegate.h */,
 				ACE079991B72316100311028 /* AppDelegate.m */,
-				ACD74BB61B74CA3C008092E9 /* RecipesTableViewController.h */,
-				ACD74BB71B74CA3C008092E9 /* RecipesTableViewController.m */,
-				ACD74BB91B74CA99008092E9 /* RecipesQuerySender.h */,
-				ACD74BBA1B74CABC008092E9 /* RecipesQuerySender.m */,
 				ACD74BBC1B74D8E6008092E9 /* PhotoViewController.h */,
 				ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */,
 				ACE0799B1B72316100311028 /* ViewController.h */,
@@ -294,8 +284,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACE0799D1B72316100311028 /* ViewController.m in Sources */,
-				ACD74BBB1B74CABC008092E9 /* RecipesQuerySender.m in Sources */,
-				ACD74BB81B74CA3C008092E9 /* RecipesTableViewController.m in Sources */,
 				ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */,
 				ACE0799A1B72316100311028 /* AppDelegate.m in Sources */,
 				ACE079971B72316100311028 /* main.m in Sources */,
