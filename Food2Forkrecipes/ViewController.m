@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-//#import "RecipesTableViewController.h"
+#import "DisplayRecipeController.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
 #import "PhotoViewController.h"
@@ -34,7 +34,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 
 int currentPage = 1;
 int currentDisplayType = 1;
-
+NSString* choosedId;
 //@synthesize recipesDisplayTable;
 
 - (void)viewDidLoad {
@@ -46,9 +46,20 @@ int currentDisplayType = 1;
     
     //[self.recipesDisplayTable registerClass:[UITableViewCell class]  forCellReuseIdentifier:@"Item"];
 
-
-    //NSLog(@"init table");
     [self sendQuery:Trending SearchQuery:@"" page:currentPage];
+
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"prepareForSegue: %@", segue.identifier);
+    if ([segue.identifier isEqualToString:@"getRecipe"]) {
+        UINavigationController *navigationController = (UINavigationController*)segue.destinationViewController;
+        
+        DisplayRecipeController *recipeDetails = (DisplayRecipeController*)navigationController.topViewController;
+        recipeDetails.recipeId = choosedId;
+
+    }
 
 }
 
@@ -130,6 +141,7 @@ int recipesCount = 0;
     recipesCount = (int)[self.queryResponse[@"count"] integerValue];
     
     NSArray *recipesList = self.queryResponse[@"recipes"];
+    
     int index = 0;
     
     self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
@@ -168,6 +180,8 @@ int recipesCount = 0;
     
 }
 
+
+
 #pragma mark - controls
 
 - (IBAction)segmentSwitch:(id)sender {
@@ -177,10 +191,12 @@ int recipesCount = 0;
     if (selectedSegment == 0) {
         //toggle the correct view to be visible
         NSLog(@"switched to Top Rated");
+        currentPage = 1;
         [self sendQuery:TopRated SearchQuery:@"" page:currentPage];
     }
     else{
         //toggle the correct view to be visible
+        currentPage = 1;
         NSLog(@"switched to Trending");
         [self sendQuery:Trending SearchQuery:@"" page:currentPage];
      }
@@ -205,6 +221,10 @@ int recipesCount = 0;
     self.labelTitle.text = [NSString stringWithFormat:@"Search results:%i",recipesCount];
 
 }
+
+
+
+#pragma mark - custom methods
 
 -(NSString*)parseHtmlCodes:(NSString*)input {
     //parse html codes (but not all)
@@ -300,11 +320,13 @@ int recipesCount = 0;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PhotoViewController *photoVC = [[PhotoViewController alloc] init];
+    NSLog(@"item selected: %li, rId:%@",indexPath.row,self.recipe_id[indexPath.row]);
+    choosedId = self.recipe_id[indexPath.row];
     
-    photoVC.imageFilename = self.imagesList[indexPath.row];
+//    [self getRecipe:self.recipe_id[indexPath.row]];
     
-    [self.navigationController pushViewController:photoVC animated:YES];
+    [self performSegueWithIdentifier:@"getRecipe" sender:self];
+
 }
 
 // Override to support conditional editing of the table view.

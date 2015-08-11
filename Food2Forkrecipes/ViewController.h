@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 
+//controls
 @property (strong, nonatomic) IBOutlet UITableView *recipesDisplayTable;
 @property (strong, nonatomic) IBOutlet UILabel *labelTitle;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -18,7 +19,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *previousButton;
 
 
-//data containers
+//data containers for list
 @property (strong, nonatomic) NSDictionary *queryResponse;
 @property (strong, nonatomic) NSMutableArray *titlesList;
 @property (strong, nonatomic) NSMutableArray *imagesList;
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) NSMutableArray *publisher_url;
 @property (strong, nonatomic) NSMutableArray *source_url;
 @property (strong, nonatomic) NSMutableArray *f2f_url;
+
 
 @end
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8736C2FE1C59A2D720DD4713 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 289FF162D15AEDB0D4BAFE59 /* libPods.a */; };
 		ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */; };
+		ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */; };
 		ACE079971B72316100311028 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079961B72316100311028 /* main.m */; };
 		ACE0799A1B72316100311028 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079991B72316100311028 /* AppDelegate.m */; };
 		ACE0799D1B72316100311028 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE0799C1B72316100311028 /* ViewController.m */; };
@@ -33,6 +34,8 @@
 		9377D38E94E7983C0E5F9234 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../../../../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ACD74BBC1B74D8E6008092E9 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayRecipeController.h; sourceTree = "<group>"; };
+		ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayRecipeController.m; sourceTree = "<group>"; };
 		ACE079911B72316100311028 /* Food2Forkrecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Forkrecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE079951B72316100311028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACE079961B72316100311028 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 				ACE0799B1B72316100311028 /* ViewController.h */,
 				ACE0799C1B72316100311028 /* ViewController.m */,
 				ACE0799E1B72316100311028 /* Main.storyboard */,
+				ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */,
+				ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */,
 				ACE079A11B72316100311028 /* Images.xcassets */,
 				ACE079A31B72316100311028 /* LaunchScreen.xib */,
 				ACE079941B72316100311028 /* Supporting Files */,
@@ -287,6 +292,7 @@
 				ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */,
 				ACE0799A1B72316100311028 /* AppDelegate.m in Sources */,
 				ACE079971B72316100311028 /* main.m in Sources */,
+				ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
