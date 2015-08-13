@@ -11,9 +11,13 @@
 @interface DisplayRecipeController : UIViewController
 
 //controls
-@property (strong, nonatomic) IBOutlet UINavigationBar *NavigationBar;
+//@property (strong, nonatomic) IBOutlet UINavigationBar *NavigationBar;
 @property (strong, nonatomic) IBOutlet UIImageView *ItemImage;
 @property (strong, nonatomic) IBOutlet UITextView *Text;
+@property (strong, nonatomic) IBOutlet UILabel *Subtitle;
+@property (strong, nonatomic) IBOutlet UIButton *viewSourceButton;
+@property (strong, nonatomic) IBOutlet UIButton *viewPublisherButton;
+@property (strong, nonatomic) IBOutlet UIButton *viewImageButton;
 
 
 

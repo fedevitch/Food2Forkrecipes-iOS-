@@ -48,7 +48,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 
 -(void) recipeRequestSuccessfull
 {
-    NSLog(@"Query success. Recipe: %@",self.queryResponseGet[@"recipe"]);
+    NSLog(@"Get recipe: Query success =^_^=");
     NSDictionary* recipeDetails = self.queryResponseGet[@"recipe"];
     
     self.textRecipe = [[NSMutableArray alloc] initWithObjects:recipeDetails[@"ingredients"],nil];
@@ -60,37 +60,41 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
     self.item_social_rank = [[NSString alloc] init];//with initWithString app crashes
     self.item_social_rank = recipeDetails[@"social_rank"];
     
-    //    NSLog(@"title: %@",recipeDetails[@"title"]);
-    NSLog(@"title: %@",self.titleRecipe);
-    NSLog(@"rank: %@",self.item_social_rank);
-    NSLog(@"publisher: %@",self.item_publisher);
-    NSLog(@"image: %@",self.itemImageLink);
-    NSLog(@"ingredients: %@",self.textRecipe);
-    NSLog(@"publisher_url: %@",self.item_publisher_url);
-    NSLog(@"source: %@",self.item_source_url);
+//    NSLog(@"title: %@",recipeDetails[@"title"]);
+//    NSLog(@"title: %@",self.titleRecipe);
+//    NSLog(@"rank: %@",self.item_social_rank);
+//    NSLog(@"publisher: %@",self.item_publisher);
+//    NSLog(@"image: %@",self.itemImageLink);
+//    NSLog(@"ingredients: %@",self.textRecipe);
+//    NSLog(@"publisher_url: %@",self.item_publisher_url);
+//    NSLog(@"source: %@",self.item_source_url);
+    
+    self.Subtitle.text = [NSString stringWithFormat:@"\n\npublisher: %@ rank: %@",self.item_publisher, self.item_social_rank];
+
     
     NSString* Recipe = @"";
 
     for (NSDictionary* ingredient in recipeDetails[@"ingredients"]) {
-        NSLog(@"%@",ingredient);
+        //NSLog(@"%@",ingredient);
         Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"\n%@",ingredient]];
     }
-    Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"\n\nSource: %@",self.item_source_url]];
 
-    Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"\nPublisher: %@",self.item_publisher_url]];
-    Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"\nImage: %@",self.itemImageLink]];
-
-    
-//    self.TextOfDetails = self.titleRecipe;
-//    self.NavigationBar.topItem.title = self.titleRecipe;
-//    self.title = self.titleRecipe;
     self.navigationController.navigationBar.topItem.title = self.titleRecipe;
-//    [self.NavigationBar.topItem setTitle:self.titleRecipe];
-    //NSLog(@"TITLE: %@",self.titleRecipe);
-    NSLog(@"text: %@",Recipe);
+
+//    NSLog(@"text: %@",Recipe);
     self.Text.text = [self parseHtmlCodes:Recipe];
     
-    [self.ItemImage setImageWithURL:[NSURL URLWithString:self.itemImageLink]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.itemImageLink]];
+    
+    __weak UIImageView *ImagePlaceholder = self.ItemImage;
+    
+    [self.ItemImage setImageWithURLRequest:request
+                   placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                            success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                
+                                ImagePlaceholder.image = image;
+                                
+                            } failure:nil];
     
 }
 
@@ -149,5 +153,19 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
     
 }
 
+-(IBAction)viewSource
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.item_source_url]];
+}
+
+-(IBAction)viewPublisher
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.item_publisher_url]];
+}
+
+-(IBAction)viewImage
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.itemImageLink]];
+}
 
 @end

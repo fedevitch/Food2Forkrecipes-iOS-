@@ -142,7 +142,7 @@ int recipesCount = 0;
     
     NSArray *recipesList = self.queryResponse[@"recipes"];
     
-    int index = 0;
+//    int index = 0;//for log
     
     self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
     self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
@@ -165,15 +165,15 @@ int recipesCount = 0;
         [self.source_url addObject:element[@"source_url"]];
         
         //log messages
-        NSLog(@"index %i", index+1);
-        NSLog(@"Title: %@",self.titlesList[index]);
-        NSLog(@"Image: %@",self.imagesList[index]);
-        NSLog(@"publisher: %@",self.publisher[index]);
-        NSLog(@"rank: %@",self.social_rank[index]);
-        NSLog(@"id: %@",self.recipe_id[index]);
-        NSLog(@"publisher URL: %@",self.publisher_url[index]);
-        NSLog(@"source URL: %@",self.source_url[index]);
-        index++;
+//        NSLog(@"index %i", index+1);
+//        NSLog(@"Title: %@",self.titlesList[index]);
+//        NSLog(@"Image: %@",self.imagesList[index]);
+//        NSLog(@"publisher: %@",self.publisher[index]);
+//        NSLog(@"rank: %@",self.social_rank[index]);
+//        NSLog(@"id: %@",self.recipe_id[index]);
+//        NSLog(@"publisher URL: %@",self.publisher_url[index]);
+//        NSLog(@"source URL: %@",self.source_url[index]);
+//        index++;
         
     }
     [self.recipesDisplayTable reloadData];
@@ -202,10 +202,12 @@ int recipesCount = 0;
      }
 }
 - (IBAction)previousButtonTouchUpInside:(id)sender {
+    NSLog(@"go back");
     currentPage -= 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
 - (IBAction)nextButtonTouchUpInside:(id)sender {
+    NSLog(@"go forward");
     currentPage += 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
@@ -310,7 +312,22 @@ int recipesCount = 0;
     NSString *details = [[NSString alloc] initWithFormat:@"publisher: %@, rank: %@", self.publisher[indexPath.row], self.social_rank[indexPath.row]];
     //NSLog(@"detail: %@", details);
     cell.detailTextLabel.text = details;
-    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];
+//    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];//simple and not optimal
+    [cell.imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];
+    
+    __weak UITableViewCell *weakCell = cell;
+    
+    [cell.imageView setImageWithURLRequest:request
+                          placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                       
+                                       weakCell.imageView.image = image;
+                                       [weakCell setNeedsLayout];
+                                       
+                                   } failure:nil];
+    
     return cell;
 }
 
