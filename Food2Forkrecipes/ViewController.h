@@ -12,12 +12,14 @@
 
 //controls
 @property (strong, nonatomic) IBOutlet UITableView *recipesDisplayTable;
-@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
+//@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *displayTypeChanger;
-@property (strong, nonatomic) IBOutlet UIButton *nextButton;
-@property (strong, nonatomic) IBOutlet UIButton *previousButton;
+//@property (strong, nonatomic) IBOutlet UIButton *nextButton;
+//@property (strong, nonatomic) IBOutlet UIButton *previousButton;
+//@property (strong, nonatomic) IBOutlet UITableViewCell *prototypeCell;
 
+@property (strong, nonatomic) NSString *choosedId;
 
 //data containers for list
 @property (strong, nonatomic) NSDictionary *queryResponse;

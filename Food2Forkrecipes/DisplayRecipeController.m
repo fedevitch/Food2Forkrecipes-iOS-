@@ -25,6 +25,15 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = NO;
+}
+
+//-(void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+//}
+
 -(void)getRecipe:(NSString*)recipeId
 {
     NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@get?key=%@&rId=%@",baseURL,apiKey,recipeId]];
@@ -48,7 +57,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 
 -(void) recipeRequestSuccessfull
 {
-    NSLog(@"Get recipe: Query success =^_^=");
+    NSLog(@"Get recipe: Query success =^_^= ID:%@",self.recipeId);
     NSDictionary* recipeDetails = self.queryResponseGet[@"recipe"];
     
     self.textRecipe = [[NSMutableArray alloc] initWithObjects:recipeDetails[@"ingredients"],nil];

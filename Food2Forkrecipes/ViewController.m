@@ -48,18 +48,27 @@ NSString* choosedId;
     
     //[self.recipesDisplayTable registerClass:[UITableViewCell class]  forCellReuseIdentifier:@"Item"];
 
+    self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher = [[NSMutableArray alloc] initWithObjects: nil];
+    self.social_rank = [[NSMutableArray alloc] initWithObjects: nil];
+    self.recipe_id = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher_url = [[NSMutableArray alloc] initWithObjects: nil];
+    self.source_url = [[NSMutableArray alloc] initWithObjects: nil];
+    
     [self sendQuery:Trending SearchQuery:@"" page:currentPage];
 
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"prepareForSegue: %@", segue.identifier);
-    if ([segue.identifier isEqualToString:@"getRecipe"]) {
-        UINavigationController *navigationController = (UINavigationController*)segue.destinationViewController;
+    NSLog(@"prepareForSegue... id: %@", segue.identifier);
+    if ([segue.identifier isEqualToString:@"showRecipe"]) {
+        //UINavigationController *navigationController = (UINavigationController*)segue.destinationViewController;
         
-        DisplayRecipeController *recipeDetails = (DisplayRecipeController*)navigationController.topViewController;
-        recipeDetails.recipeId = choosedId;
+        DisplayRecipeController *recipeDetails = (DisplayRecipeController*)segue.destinationViewController;
+        recipeDetails.recipeId = self.recipe_id[selectedItem];
+        NSLog(@"Sending recipeId: %@",recipeDetails.recipeId);
 
     }
 
@@ -68,6 +77,7 @@ NSString* choosedId;
 #pragma mark - Custom methods
 
 int recipesCount = 0;
+int selectedItem = 0;
 
 -(int)getCount
 {
@@ -87,37 +97,34 @@ int recipesCount = 0;
 
 -(void)sendQuery: (int)queryType SearchQuery:(NSString*)Query page:(int)page
 {
-    if (currentPage == 1) {
-        [self.previousButton setEnabled:NO];
-    }
-    else{
-        [self.previousButton setEnabled:YES];
-    }
-    [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
+//    if (currentPage == 1) {
+//        [self.previousButton setEnabled:NO];
+//    }
+//    else{
+//        [self.previousButton setEnabled:YES];
+//    }
+    //[self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
     NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t",baseURL,apiKey]];//default value
     if (queryType == Trending) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t&page=%i",baseURL,apiKey,currentPage]];
         currentDisplayType = Trending;
-        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
-        [self.nextButton setEnabled:YES];
-        
+//        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
+//        [self.nextButton setEnabled:YES];
     }
     if (queryType == TopRated) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=r&page=%i",baseURL,apiKey,currentPage]];
         currentDisplayType = TopRated;
-        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
-        [self.nextButton setEnabled:YES];
+//        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
+//        [self.nextButton setEnabled:YES];
     }
     if (queryType == Search) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&q=%@&page=%i",baseURL,apiKey,Query,currentPage]];
         currentDisplayType = Search;
         //[self.previousButton setEnabled:NO];
-        [self.nextButton setEnabled:YES];
+//        [self.nextButton setEnabled:YES];
         [self.displayTypeChanger setSelectedSegmentIndex:UISegmentedControlNoSegment];
         //currentPage = 1;
     }
-    
-
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     
@@ -140,20 +147,14 @@ int recipesCount = 0;
 -(void) requestSuccessfull
 {
     NSLog(@"Query success. Count: %@",self.queryResponse[@"count"]);
-    recipesCount = (int)[self.queryResponse[@"count"] integerValue];
+    recipesCount += (int)[self.queryResponse[@"count"] integerValue];
     
     NSArray *recipesList = self.queryResponse[@"recipes"];
     
 //    int index = 0;//for log
     
     
-    self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
-    self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
-    self.publisher = [[NSMutableArray alloc] initWithObjects: nil];
-    self.social_rank = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipe_id = [[NSMutableArray alloc] initWithObjects: nil];
-    self.publisher_url = [[NSMutableArray alloc] initWithObjects: nil];
-    self.source_url = [[NSMutableArray alloc] initWithObjects: nil];
+
     for(NSDictionary *element in recipesList){
         
 //        NSAttributedString *title = [[NSAttributedString alloc] initWithData:[element[@"title"] dataUsingEncoding:NSUTF8StringEncoding] //parse html codes options:@{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];         //it works too slow
@@ -190,98 +191,89 @@ int recipesCount = 0;
 - (IBAction)segmentSwitch:(id)sender {
     UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
     NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
+    [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
+        // set variables to default values
+    self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher = [[NSMutableArray alloc] initWithObjects: nil];
+    self.social_rank = [[NSMutableArray alloc] initWithObjects: nil];
+    self.recipe_id = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher_url = [[NSMutableArray alloc] initWithObjects: nil];
+    self.source_url = [[NSMutableArray alloc] initWithObjects: nil];
     
+    currentPage = 1;
+    recipesCount = 0;
+    [self.recipesDisplayTable reloadData];
     if (selectedSegment == 0) {
         //toggle the correct view to be visible
         NSLog(@"switched to Top Rated");
-        currentPage = 1;
+        
         [self sendQuery:TopRated SearchQuery:@"" page:currentPage];
     }
     else{
         //toggle the correct view to be visible
-        currentPage = 1;
+        
         NSLog(@"switched to Trending");
         [self sendQuery:Trending SearchQuery:@"" page:currentPage];
      }
 }
-- (IBAction)previousButtonTouchUpInside:(id)sender {
+- (IBAction)previousButtonTouchUpInside:(id)sender {//replaced with scroll
     NSLog(@"go back");
     currentPage -= 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
-- (IBAction)nextButtonTouchUpInside:(id)sender {
+- (IBAction)nextButtonTouchUpInside:(id)sender {//replaced with scroll
     NSLog(@"go forward");
     currentPage += 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
 
+//-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+//{
+//    NSLog(@"go forward");
+//    currentPage += 1;
+//    [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
+//}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    // UITableView only moves in one direction, y axis
+    CGFloat currentOffset = scrollView.contentOffset.y;
+    CGFloat maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    //    CGFloat minimumOffset = scroll.contentSize.height //for scroll up
+    
+    // Change 10.0 to adjust the distance from bottom
+    if (maximumOffset - currentOffset <= 30.0) {
+        // [self methodThatAddsDataAndReloadsTableView];
+        NSLog(@"i want moar");
+        currentPage += 1;
+        [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
+    }
+
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    // Do the search...
+    // set variables to default values
+    [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
     currentPage = 1;
+    recipesCount = 0;
+    self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher = [[NSMutableArray alloc] initWithObjects: nil];
+    self.social_rank = [[NSMutableArray alloc] initWithObjects: nil];
+    self.recipe_id = [[NSMutableArray alloc] initWithObjects: nil];
+    self.publisher_url = [[NSMutableArray alloc] initWithObjects: nil];
+    self.source_url = [[NSMutableArray alloc] initWithObjects: nil];
+    [self.recipesDisplayTable reloadData];
     NSLog(@"start search...");
     currentDisplayType = Search;
     [self sendQuery:currentDisplayType SearchQuery:[self.searchBar text] page:currentPage];
-    self.labelTitle.text = [NSString stringWithFormat:@"Search results:%i",recipesCount];
+//    self.labelTitle.text = [NSString stringWithFormat:@"Search results:%i",recipesCount];
 
 }
 
-#pragma mark - custom methods
-
--(NSString*)parseHtmlCodes:(NSString*)input {
-    //parse html codes (but not all)
-    //source: http://stackoverflow.com/questions/1067652/converting-amp-to-in-objective-c
-    NSRange rangeOfHTMLEntity = [input rangeOfString:@"&#"];
-    if( NSNotFound == rangeOfHTMLEntity.location ) {
-        NSRange amp = [input rangeOfString:@"&amp;"];// catch the '&'
-        if (NSNotFound == amp.location) {
-            return input;
-        }
-        else{
-            input = [input stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-        }
-        return input;
-    }
-    
-    
-    NSMutableString* answer = [[NSMutableString alloc] init];
-    //[answer autorelease];
-    
-    NSScanner* scanner = [NSScanner scannerWithString:input];
-    [scanner setCharactersToBeSkipped:nil]; // we want all white-space
-    
-    while( ![scanner isAtEnd] ) {
-        
-        NSString* fragment;
-        [scanner scanUpToString:@"&#" intoString:&fragment];
-        if( nil != fragment ) { // e.g. '&#38; B'
-            [answer appendString:fragment];
-        }
-        
-        if( ![scanner isAtEnd] ) { // implicitly we scanned to the next '&#'
-            
-            int scanLocation = (int)[scanner scanLocation];
-            [scanner setScanLocation:scanLocation+2]; // skip over '&#'
-            
-            int htmlCode;
-            if( [scanner scanInt:&htmlCode] ) {
-                char c = htmlCode;
-                [answer appendFormat:@"%c", c];
-                
-                scanLocation = (int)[scanner scanLocation];
-                [scanner setScanLocation:scanLocation+1]; // skip over ';'
-                
-            } else {
-                // err ? 
-            }
-        }
-        
-    }
-    
-    return answer;
-    
-}
 
 
 #pragma mark - Table view data source
@@ -341,11 +333,12 @@ int recipesCount = 0;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSLog(@"item selected: %li, rId:%@",indexPath.row,self.recipe_id[indexPath.row]);
-    choosedId = self.recipe_id[indexPath.row];
     
-//    [self getRecipe:self.recipe_id[indexPath.row]];
+    selectedItem = (int)indexPath.row;
     
-    [self performSegueWithIdentifier:@"getRecipe" sender:self];
+    self.choosedId = self.recipe_id[indexPath.row];
+    
+    [self performSegueWithIdentifier:@"showRecipe" sender:self];
 
 }
 
@@ -356,12 +349,73 @@ int recipesCount = 0;
 }
 
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 
+//-(void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+//}
+
+#pragma mark - custom methods
+
+-(NSString*)parseHtmlCodes:(NSString*)input {
+    //parse html codes (but not all)
+    //source: http://stackoverflow.com/questions/1067652/converting-amp-to-in-objective-c
+    NSRange rangeOfHTMLEntity = [input rangeOfString:@"&#"];
+    if( NSNotFound == rangeOfHTMLEntity.location ) {
+        NSRange amp = [input rangeOfString:@"&amp;"];// catch the '&'
+        if (NSNotFound == amp.location) {
+            return input;
+        }
+        else{
+            input = [input stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        }
+        return input;
+    }
+    
+    
+    NSMutableString* answer = [[NSMutableString alloc] init];
+    //[answer autorelease];
+    
+    NSScanner* scanner = [NSScanner scannerWithString:input];
+    [scanner setCharactersToBeSkipped:nil]; // we want all white-space
+    
+    while( ![scanner isAtEnd] ) {
+        
+        NSString* fragment;
+        [scanner scanUpToString:@"&#" intoString:&fragment];
+        if( nil != fragment ) { // e.g. '&#38; B'
+            [answer appendString:fragment];
+        }
+        
+        if( ![scanner isAtEnd] ) { // implicitly we scanned to the next '&#'
+            
+            int scanLocation = (int)[scanner scanLocation];
+            [scanner setScanLocation:scanLocation+2]; // skip over '&#'
+            
+            int htmlCode;
+            if( [scanner scanInt:&htmlCode] ) {
+                char c = htmlCode;
+                [answer appendFormat:@"%c", c];
+                
+                scanLocation = (int)[scanner scanLocation];
+                [scanner setScanLocation:scanLocation+1]; // skip over ';'
+                
+            } else {
+                // err ?
+            }
+        }
+        
+    }
+    
+    return answer;
+    
+}
 
 
 
