@@ -69,21 +69,25 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 //    NSLog(@"publisher_url: %@",self.item_publisher_url);
 //    NSLog(@"source: %@",self.item_source_url);
     
-    self.Subtitle.text = [NSString stringWithFormat:@"\n\npublisher: %@ rank: %@",self.item_publisher, self.item_social_rank];
+    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank] ];
 
     
     NSString* Recipe = @"";
 
     for (NSDictionary* ingredient in recipeDetails[@"ingredients"]) {
         //NSLog(@"%@",ingredient);
-        Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"\n%@",ingredient]];
+        if ([ingredient  isEqual: @""]) {
+            NSLog(@"empty string found");
+            continue;
+        }
+        Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"%@\n",ingredient]];
     }
 
     self.navigationController.navigationBar.topItem.title = self.titleRecipe;
 
 //    NSLog(@"text: %@",Recipe);
-    self.Text.text = [self parseHtmlCodes:Recipe];
-    
+    //self.Text.text = [self parseHtmlCodes:Recipe];
+    self.Text.text = Recipe;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.itemImageLink]];
     
     __weak UIImageView *ImagePlaceholder = self.ItemImage;

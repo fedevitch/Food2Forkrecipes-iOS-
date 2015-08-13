@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView autoresizesSubviews="NO" contentMode="center" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" restorationIdentifier="recipesDisplayTable" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fo6-aj-BFg">
+                            <tableView autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" restorationIdentifier="recipesDisplayTable" alwaysBounceVertical="YES" indicatorStyle="white" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fo6-aj-BFg">
                                 <rect key="frame" x="0.0" y="57" width="600" height="484"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -893,8 +893,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" showsHorizontalScrollIndicator="NO" indicatorStyle="white" keyboardDismissMode="interactive" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUC-NH-pad">
-                                <rect key="frame" x="16" y="307" width="568" height="232"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" showsHorizontalScrollIndicator="NO" indicatorStyle="white" keyboardDismissMode="interactive" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUC-NH-pad">
+                                <rect key="frame" x="16" y="309" width="568" height="230"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES" link="YES" staticText="YES"/>
@@ -913,14 +913,8 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 </variation>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="568" placeholderIntrinsicHeight="21" text="publisher: rank" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-c0-mSm">
-                                <rect key="frame" x="16" y="70" width="568" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="Z9a-JT-m29">
-                                <rect key="frame" x="175" y="99" width="250" height="200"/>
+                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="Z9a-JT-m29">
+                                <rect key="frame" x="175" y="72" width="250" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="hlW-Q8-LrD">
                                         <variation key="widthClass=compact" constant="170"/>
@@ -981,6 +975,12 @@
                                     <action selector="viewImage" destination="Wvr-6R-zZb" eventType="touchUpInside" id="yFr-lk-CV6"/>
                                 </connections>
                             </button>
+                            <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="568" placeholderIntrinsicHeight="21" text="publisher: rank:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQB-c0-mSm">
+                                <rect key="frame" x="16" y="280" width="568" height="21"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1028,7 +1028,7 @@
                             <constraint firstItem="Z9a-JT-m29" firstAttribute="top" secondItem="JLL-K8-nbt" secondAttribute="bottom" id="Whi-WW-mmo">
                                 <variation key="widthClass=compact" constant="37"/>
                             </constraint>
-                            <constraint firstItem="Z9a-JT-m29" firstAttribute="top" secondItem="JLL-K8-nbt" secondAttribute="bottom" constant="35" id="Xl2-z5-VgG">
+                            <constraint firstItem="Z9a-JT-m29" firstAttribute="top" secondItem="JLL-K8-nbt" secondAttribute="bottom" constant="8" id="Xl2-z5-VgG">
                                 <variation key="widthClass=compact" constant="37"/>
                             </constraint>
                             <constraint firstItem="pNl-1B-Nqp" firstAttribute="leading" secondItem="tUC-NH-pad" secondAttribute="leading" id="bil-9b-La4"/>
@@ -1036,15 +1036,19 @@
                                 <variation key="widthClass=compact" constant="94"/>
                             </constraint>
                             <constraint firstItem="5KJ-rT-qG3" firstAttribute="baseline" secondItem="5uw-9C-kYM" secondAttribute="baseline" id="n5F-Hg-Zn4"/>
-                            <constraint firstItem="tUC-NH-pad" firstAttribute="top" secondItem="Z9a-JT-m29" secondAttribute="bottom" constant="8" symbolic="YES" id="oOJ-ew-geg">
+                            <constraint firstItem="tUC-NH-pad" firstAttribute="top" secondItem="Z9a-JT-m29" secondAttribute="bottom" constant="37" id="oOJ-ew-geg">
                                 <variation key="widthClass=compact" constant="8"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="37"/>
                             </constraint>
                             <constraint firstItem="PLF-ku-24S" firstAttribute="top" secondItem="tUC-NH-pad" secondAttribute="bottom" constant="61" id="s3f-Sh-m3J">
                                 <variation key="widthClass=compact" constant="35"/>
                             </constraint>
-                            <constraint firstItem="Z9a-JT-m29" firstAttribute="top" secondItem="kQB-c0-mSm" secondAttribute="bottom" constant="8" symbolic="YES" id="ufl-fT-uTP"/>
+                            <constraint firstItem="Z9a-JT-m29" firstAttribute="top" secondItem="kQB-c0-mSm" secondAttribute="bottom" constant="-229" id="ufl-fT-uTP">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-199"/>
+                            </constraint>
                             <constraint firstItem="tUC-NH-pad" firstAttribute="top" secondItem="Z9a-JT-m29" secondAttribute="bottom" constant="8" symbolic="YES" id="vgt-Bz-r6V">
                                 <variation key="widthClass=compact" constant="8"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="37"/>
                             </constraint>
                             <constraint firstItem="PLF-ku-24S" firstAttribute="top" secondItem="tUC-NH-pad" secondAttribute="bottom" constant="34" id="y5o-wd-jyU">
                                 <variation key="widthClass=compact" constant="35"/>
@@ -1099,7 +1103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qEX-NS-VoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="-518"/>
+            <point key="canvasLocation" x="996" y="-518.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Czb-dk-yhb">

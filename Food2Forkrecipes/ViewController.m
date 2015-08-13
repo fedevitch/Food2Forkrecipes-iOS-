@@ -10,7 +10,7 @@
 #import "DisplayRecipeController.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
-#import "PhotoViewController.h"
+//#import "PhotoViewController.h"
 
 
 
@@ -20,6 +20,8 @@
 @end
 
 @implementation ViewController
+
+static int const cacheInterval = 60;
 
 //1 - trending
 //2 - top rated
@@ -91,7 +93,7 @@ int recipesCount = 0;
     else{
         [self.previousButton setEnabled:YES];
     }
-    
+    [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
     NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t",baseURL,apiKey]];//default value
     if (queryType == Trending) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t&page=%i",baseURL,apiKey,currentPage]];
@@ -143,6 +145,7 @@ int recipesCount = 0;
     NSArray *recipesList = self.queryResponse[@"recipes"];
     
 //    int index = 0;//for log
+    
     
     self.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
     self.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
@@ -315,7 +318,9 @@ int recipesCount = 0;
 //    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];//simple and not optimal
     [cell.imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]
+                                        cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                         timeoutInterval:cacheInterval];
     
     __weak UITableViewCell *weakCell = cell;
     
