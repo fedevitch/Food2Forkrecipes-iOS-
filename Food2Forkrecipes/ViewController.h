@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+#import "DisplayRecipeController.h"
+#import "RecipesList.h"
+@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ReturnBack>
 
 //controls
 @property (strong, nonatomic) IBOutlet UITableView *recipesDisplayTable;
-//@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
+
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *displayTypeChanger;
-//@property (strong, nonatomic) IBOutlet UIButton *nextButton;
-//@property (strong, nonatomic) IBOutlet UIButton *previousButton;
-//@property (strong, nonatomic) IBOutlet UITableViewCell *prototypeCell;
+
 
 @property (strong, nonatomic) NSString *choosedId;
+
 
 //data containers for list
 @property (strong, nonatomic) NSDictionary *queryResponse;
@@ -31,7 +31,6 @@
 @property (strong, nonatomic) NSMutableArray *publisher_url;
 @property (strong, nonatomic) NSMutableArray *source_url;
 @property (strong, nonatomic) NSMutableArray *f2f_url;
-
 
 @end
 

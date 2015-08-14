@@ -6,10 +6,15 @@
 //  Copyright (c) 2015 Lubomyr Fedevych. All rights reserved.
 //
 
+
 #import "DisplayRecipeController.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
-#import "PhotoViewController.h"
+#import "ViewController.h"
+
+@protocol ViewControllerBDelegate <NSObject>
+- (void)addItemViewController:(DisplayRecipeController *)controller didFinishViewItem:(NSString *)item;
+@end
 
 @implementation DisplayRecipeController
 
@@ -33,6 +38,24 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 //    [super viewWillAppear:animated];
 //    [[self navigationController] setNavigationBarHidden:NO animated:YES];
 //}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSLog(@"prepareForSegue... id: %@", segue.identifier);
+    if ([segue.identifier isEqualToString:@"returnToList"]) {
+        NSLog(@"DisplayRecipe: returning to list..");
+        [self.delegate returnBack:self isReturn:YES recipesList:self.listSaver];//returning saved data to list
+    }
+}
+
+
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+    }
+    [super viewWillDisappear:animated];
+}
 
 -(void)getRecipe:(NSString*)recipeId
 {
@@ -78,7 +101,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 //    NSLog(@"publisher_url: %@",self.item_publisher_url);
 //    NSLog(@"source: %@",self.item_source_url);
     
-    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank] ];
+    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank]];
 
     
     NSString* Recipe = @"";

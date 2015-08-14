@@ -7,6 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecipesList.h"
+
+@class DisplayRecipeController;
+
+@protocol ReturnBack <NSObject>
+
+-(void)returnBack: (DisplayRecipeController *)displayRecipe isReturn:(BOOL)isReturning recipesList:(RecipesList *)savedList;
+
+@end
 
 @interface DisplayRecipeController : UIViewController
 
@@ -33,5 +42,12 @@
 @property (strong, nonatomic) NSString *item_publisher;
 @property (strong, nonatomic) NSString *item_publisher_url;
 @property (strong, nonatomic) NSString *item_social_rank;
+
+
+//list must be saved!
+//data containers for list
+@property RecipesList *listSaver;
+
+@property (weak,nonatomic) id <ReturnBack> delegate;
 
 @end
