@@ -1,0 +1,6 @@
+file=/Users/lubomyrfedevych/Food2Forkrecipes/Pods/BuildHeaders/MBProgressHUD/MBProgressHUD.h
+if [[ ! -e $file &&  -L $file ]]; then
+  echo "$file symlink is  broken!"
+else
+  echo "symlink works"
+fi

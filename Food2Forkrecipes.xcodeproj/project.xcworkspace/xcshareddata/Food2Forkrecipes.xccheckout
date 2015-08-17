@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>AAF24BEB-4F3F-4B9B-9D9A-E1A038E644A6</string>
+	<string>B7957BCA-BC86-47DE-A24F-BC67BC6B00F8</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Food2Forkrecipes</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -16,13 +16,13 @@
 		<string>https://github.com/fedevitch/Food2Forkrecipes-iOS-.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Food2Forkrecipes.xcworkspace</string>
+	<string>Food2Forkrecipes.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>31A54307589F57C16B500660749E0A993C7A0769</key>
-		<string>../..</string>
+		<string>../../..</string>
 		<key>4FB91F1FD3A1495723BFA84AEF9850C728C119A6</key>
-		<string>..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/fedevitch/Food2Forkrecipes-iOS-.git</string>

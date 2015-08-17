@@ -27,6 +27,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *viewSourceButton;
 @property (strong, nonatomic) IBOutlet UIButton *viewPublisherButton;
 @property (strong, nonatomic) IBOutlet UIButton *viewImageButton;
+//@property (strong, nonatomic) IBOutlet UIButton *BackButton;
+@property (strong, nonatomic) IBOutlet UILabel *labelTitle;
 
 
 

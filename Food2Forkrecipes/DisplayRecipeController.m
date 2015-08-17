@@ -24,29 +24,35 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    //self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
     NSLog(@"display details init");
     [self getRecipe:self.recipeId];
-    
+
+    //    [self.BackButton actionsForTarget:self forControlEvent:UIControlEventTouchUpInside];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = NO;
+    [self.navigationController.navigationBar.backItem.backBarButtonItem setEnabled:YES];
 }
 
-//-(void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-//}
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
-    if ([segue.identifier isEqualToString:@"returnToList"]) {
+//    if ([segue.identifier isEqualToString:@"returnToList"]) {
+    ViewController *recipesList = (ViewController*)segue.destinationViewController;
+    recipesList.recipesList = self.listSaver;
         NSLog(@"DisplayRecipe: returning to list..");
         [self.delegate returnBack:self isReturn:YES recipesList:self.listSaver];//returning saved data to list
-    }
+//    }
 }
+
 
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -100,7 +106,9 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 //    NSLog(@"ingredients: %@",self.textRecipe);
 //    NSLog(@"publisher_url: %@",self.item_publisher_url);
 //    NSLog(@"source: %@",self.item_source_url);
-    
+    self.navigationItem.title = self.titleRecipe;
+    self.title = self.titleRecipe;
+    self.labelTitle.text = self.titleRecipe;
     [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank]];
 
     
@@ -188,6 +196,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
     return answer;
     
 }
+
 
 -(IBAction)viewSource
 {

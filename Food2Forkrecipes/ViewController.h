@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DisplayRecipeController.h"
 #import "RecipesList.h"
+
 @interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ReturnBack>
 
 //controls
@@ -20,6 +21,7 @@
 
 @property (strong, nonatomic) NSString *choosedId;
 
+@property (weak) UIPopoverController *popoverPresentation;
 
 //data containers for list
 @property (strong, nonatomic) NSDictionary *queryResponse;
@@ -31,6 +33,8 @@
 @property (strong, nonatomic) NSMutableArray *publisher_url;
 @property (strong, nonatomic) NSMutableArray *source_url;
 @property (strong, nonatomic) NSMutableArray *f2f_url;
+
+@property (strong, nonatomic) RecipesList *recipesList;
 
 @end
 
