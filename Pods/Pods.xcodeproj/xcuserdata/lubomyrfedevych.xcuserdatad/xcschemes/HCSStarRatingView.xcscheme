@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "73AC8137E412E68F65AF8B8E"
-               BuildableName = "AFNetworking.framework"
-               BlueprintName = "AFNetworking"
+               BlueprintIdentifier = "6E15C4992DF3F42B4E98F317"
+               BuildableName = "HCSStarRatingView.framework"
+               BlueprintName = "HCSStarRatingView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

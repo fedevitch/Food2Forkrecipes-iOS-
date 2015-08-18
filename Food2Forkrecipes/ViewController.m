@@ -11,12 +11,9 @@
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "HCSStarRatingView/HCSStarRatingView.h"
 
 #import "MWFeedParser/Classes/NSString+HTML.h"
-//#import "/Users/lubomyrfedevych/Documents/XCode projects/F2Frecipes/Food2Forkrecipes/Pods/MBProgressHUD/MBProgressHUD.h"
-
-//#import "MBProgressHUD/MBProgressHUD.h"
-//#import "MBProgressHUD.h"
 
 
 @class RecipesList;
@@ -415,6 +412,15 @@ int selectedItem = 0;
                                        [weakCell setNeedsLayout];
                                        
                                    } failure:nil];
+//displaying star rating
+//    HCSStarRatingView *starRatingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(400,120, 170, 20)];
+//    starRatingView.maximumValue = 5;
+//    starRatingView.minimumValue = 0;
+//    starRatingView.value = [self.recipesList.social_rank[indexPath.row] floatValue]/20;
+//    starRatingView.tintColor = [UIColor redColor];
+//    [starRatingView addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+//    [cell.contentView addSubview:starRatingView];
+    
     return cell;
 }
 

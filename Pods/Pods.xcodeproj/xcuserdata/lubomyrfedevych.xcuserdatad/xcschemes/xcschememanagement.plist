@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HCSStarRatingView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MWFeedParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A9BECC81D669A5A055942F6E206976E</key>
+		<key>170E6CB09713705C67BACB0B50A04C2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0A0843C35E4406010926441E5E9C150</key>
+		<key>53E823CB5A569D0F1DCC1FAF6ABB2ABC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5BA0CC38A4DF78AD2A342BA7BE8088D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A8D04D10A093F26B0071832318D0AA76</key>
 		<dict>
 			<key>primary</key>
 			<true/>
