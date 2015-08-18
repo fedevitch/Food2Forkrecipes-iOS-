@@ -10,7 +10,8 @@
 #import "DisplayRecipeController.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
-#import "ViewController.h"
+#import "MWFeedParser/Classes/NSString+HTML.h"
+//#import "ViewController.h"
 
 @protocol ViewControllerBDelegate <NSObject>
 - (void)addItemViewController:(DisplayRecipeController *)controller didFinishViewItem:(NSString *)item;
@@ -46,10 +47,10 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 {
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
 //    if ([segue.identifier isEqualToString:@"returnToList"]) {
-    ViewController *recipesList = (ViewController*)segue.destinationViewController;
-    recipesList.recipesList = self.listSaver;
-        NSLog(@"DisplayRecipe: returning to list..");
-        [self.delegate returnBack:self isReturn:YES recipesList:self.listSaver];//returning saved data to list
+//    ViewController *recipesList = (ViewController*)segue.destinationViewController;
+//    recipesList.recipesList = self.listSaver;
+//        NSLog(@"DisplayRecipe: returning to list..");
+//        [self.delegate returnBack:self isReturn:YES recipesList:self.listSaver];//returning saved data to list
 //    }
 }
 
@@ -90,7 +91,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
     NSDictionary* recipeDetails = self.queryResponseGet[@"recipe"];
     
     self.textRecipe = [[NSMutableArray alloc] initWithObjects:recipeDetails[@"ingredients"],nil];
-    self.titleRecipe = [[NSString alloc] initWithString:recipeDetails[@"title"]];
+    self.titleRecipe = [[NSString alloc] initWithString:[recipeDetails[@"title"] stringByDecodingHTMLEntities]];
     self.itemImageLink = [[NSString alloc] initWithString:recipeDetails[@"image_url"]];
     self.item_publisher = [[NSString alloc] initWithString:recipeDetails[@"publisher"]];
     self.item_publisher_url = [[NSString alloc] initWithString:recipeDetails[@"publisher_url"]];
@@ -108,7 +109,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 //    NSLog(@"source: %@",self.item_source_url);
     self.navigationItem.title = self.titleRecipe;
     self.title = self.titleRecipe;
-    self.labelTitle.text = self.titleRecipe;
+
     [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank]];
 
     
@@ -120,7 +121,7 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
             NSLog(@"empty string found");
             continue;
         }
-        Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"%@\n",ingredient]];
+        Recipe = [Recipe stringByAppendingString:[[NSString stringWithFormat:@"%@\n",ingredient] stringByDecodingHTMLEntities]];
     }
 
     self.navigationController.navigationBar.topItem.title = self.titleRecipe;
@@ -143,59 +144,6 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 }
 
 
--(NSString*)parseHtmlCodes:(NSString*)input { //this is a copy from ViewController
-    //parse html codes (but not all)
-    //source: http://stackoverflow.com/questions/1067652/converting-amp-to-in-objective-c
-    NSRange rangeOfHTMLEntity = [input rangeOfString:@"&#"];
-    if( NSNotFound == rangeOfHTMLEntity.location ) {
-        NSRange amp = [input rangeOfString:@"&amp;"];// catch the '&'
-        if (NSNotFound == amp.location) {
-            return input;
-        }
-        else{
-            input = [input stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-        }
-        return input;
-    }
-    
-    
-    NSMutableString* answer = [[NSMutableString alloc] init];
-    //[answer autorelease];
-    
-    NSScanner* scanner = [NSScanner scannerWithString:input];
-    [scanner setCharactersToBeSkipped:nil]; // we want all white-space
-    
-    while( ![scanner isAtEnd] ) {
-        
-        NSString* fragment;
-        [scanner scanUpToString:@"&#" intoString:&fragment];
-        if( nil != fragment ) { // e.g. '&#38; B'
-            [answer appendString:fragment];
-        }
-        
-        if( ![scanner isAtEnd] ) { // implicitly we scanned to the next '&#'
-            
-            int scanLocation = (int)[scanner scanLocation];
-            [scanner setScanLocation:scanLocation+2]; // skip over '&#'
-            
-            int htmlCode;
-            if( [scanner scanInt:&htmlCode] ) {
-                char c = htmlCode;
-                [answer appendFormat:@"%c", c];
-                
-                scanLocation = (int)[scanner scanLocation];
-                [scanner setScanLocation:scanLocation+1]; // skip over ';'
-                
-            } else {
-                // err ?
-            }
-        }
-        
-    }
-    
-    return answer;
-    
-}
 
 
 -(IBAction)viewSource

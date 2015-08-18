@@ -12,10 +12,10 @@
 #import "UIImageView+AFNetworking.h"
 
 
-//#import "NSString+HTML.h"
+#import "MWFeedParser/Classes/NSString+HTML.h"
 //#import "/Users/lubomyrfedevych/Documents/XCode projects/F2Frecipes/Food2Forkrecipes/Pods/MBProgressHUD/MBProgressHUD.h"
 
-#import "MBProgressHUD/MBProgressHUD.h"
+//#import "MBProgressHUD/MBProgressHUD.h"
 //#import "MBProgressHUD.h"
 
 
@@ -174,7 +174,7 @@ int selectedItem = 0;
     if (queryType == Search) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&q=%@&page=%i",baseURL,apiKey,Query,currentPage]];
         currentDisplayType = Search;
-        self.navigationItem.title = @"Search results";
+        self.navigationItem.title =[NSString stringWithFormat:@"Search results for: %@",Query ];
         [self.displayTypeChanger setSelectedSegmentIndex:UISegmentedControlNoSegment];
         //currentPage = 1;
     }
@@ -191,6 +191,21 @@ int selectedItem = 0;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@",  [error localizedDescription]);
+        //using alertview
+        NSString *message = [NSString stringWithFormat:@"error:  %@",[error localizedDescription] ];
+        
+        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil, nil];
+        [toast show];
+        
+        int duration = 1; // duration in seconds
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
     }];
     
     [operation start];
@@ -204,13 +219,14 @@ int selectedItem = 0;
     
     NSArray *receivedList = self.queryResponse[@"recipes"];
     
-//    int index = 0;//for log
+//    int index = 0;//for log output
 
     
     for(NSDictionary *element in receivedList){
-        
+        //NSString *title = [[NSString alloc] initWithString:element[@"title"]];
+        //[title stringByEncodingHTMLEntities];
         //add data
-        [self.recipesList.titlesList addObject:[self parseHtmlCodes:element[@"title"]]];
+        [self.recipesList.titlesList addObject:[element[@"title"] stringByDecodingHTMLEntities]];
         [self.recipesList.imagesList addObject:element[@"image_url"]];
         [self.recipesList.publisher addObject:element[@"publisher"]];
         [self.recipesList.social_rank addObject:element[@"social_rank"]];
@@ -231,10 +247,10 @@ int selectedItem = 0;
 //        index++;
         
     }
-    
+
 //    NSLog(@"Title: %@",[self.recipesList titlesList]);
     [self.recipesDisplayTable reloadData];
-    updatingList = NO;
+//    updatingList = NO;
     
 }
 
@@ -258,7 +274,7 @@ int selectedItem = 0;
     [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
         // set variables to default values
     [self listsInitialize];
-    
+    self.searchBar.text = @"";
     currentPage = 1;
     recipesCount = 0;
     [self.recipesDisplayTable reloadData];
@@ -275,33 +291,41 @@ int selectedItem = 0;
         [self sendQuery:Trending SearchQuery:@"" page:currentPage];
      }
 }
-- (IBAction)previousButtonTouchUpInside:(id)sender {//replaced with scroll
+
+/*
+- (IBAction)previousButtonTouchUpInside:(id)sender {    //replaced with scroll
     NSLog(@"go back");
     currentPage -= 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
-- (IBAction)nextButtonTouchUpInside:(id)sender {//replaced with scroll
+- (IBAction)nextButtonTouchUpInside:(id)sender {        //replaced with scroll
     NSLog(@"go forward");
     currentPage += 1;
     [self sendQuery:currentDisplayType SearchQuery:@"" page:currentPage];
 }
+*/
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     CGFloat currentOffset = scrollView.contentOffset.y;
     CGFloat maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
 
-    if ((!updatingList) && (maximumOffset - currentOffset <= 150.0)) {
-        //hint message
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        // Configure for text only and offset down
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"pull down this list to get more";
-        hud.margin = 10.f;
-        hud.yOffset = 150.f;
-        hud.removeFromSuperViewOnHide = YES;
+    if ((!updatingList) && (maximumOffset - currentOffset <= 200.0)) {
+        //using alertview
+        NSString *message = @"pull down for more";
         
-        [hud hide:YES afterDelay:2];
+        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil, nil];
+        [toast show];
+        
+        int duration = 1; // duration in seconds
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
     }
 }
 
@@ -370,8 +394,7 @@ int selectedItem = 0;
     }
 
 //    cell.textLabel.text = recipesList.titlesList[indexPath.row];
-    RecipesList *tempList = [self getRecipesList];
-    cell.textLabel.text =  tempList.titlesList[indexPath.row];
+     cell.textLabel.text =  self.recipesList.titlesList[indexPath.row];
     NSString *details = [[NSString alloc] initWithFormat:@"publisher: %@, rank: %@", self.recipesList.publisher[indexPath.row], self.recipesList.social_rank[indexPath.row]];
     NSLog(@"cellForRowAtIndexPath: upd cell with data: %li title: %@\ndetail: %@\nimg: %@",indexPath.row, cell.textLabel.text, details, self.recipesList.imagesList[indexPath.row]);
     cell.detailTextLabel.text = details;
@@ -436,59 +459,7 @@ int selectedItem = 0;
 
 #pragma mark - custom methods
 
--(NSString*)parseHtmlCodes:(NSString*)input {
-    //parse html codes (but not all)
-    //source: http://stackoverflow.com/questions/1067652/converting-amp-to-in-objective-c
-    NSRange rangeOfHTMLEntity = [input rangeOfString:@"&#"];
-    if( NSNotFound == rangeOfHTMLEntity.location ) {
-        NSRange amp = [input rangeOfString:@"&amp;"];// catch the '&'
-        if (NSNotFound == amp.location) {
-            return input;
-        }
-        else{
-            input = [input stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-        }
-        return input;
-    }
-    
-    
-    NSMutableString* answer = [[NSMutableString alloc] init];
-    //[answer autorelease];
-    
-    NSScanner* scanner = [NSScanner scannerWithString:input];
-    [scanner setCharactersToBeSkipped:nil]; // we want all white-space
-    
-    while( ![scanner isAtEnd] ) {
-        
-        NSString* fragment;
-        [scanner scanUpToString:@"&#" intoString:&fragment];
-        if( nil != fragment ) { // e.g. '&#38; B'
-            [answer appendString:fragment];
-        }
-        
-        if( ![scanner isAtEnd] ) { // implicitly we scanned to the next '&#'
-            
-            int scanLocation = (int)[scanner scanLocation];
-            [scanner setScanLocation:scanLocation+2]; // skip over '&#'
-            
-            int htmlCode;
-            if( [scanner scanInt:&htmlCode] ) {
-                char c = htmlCode;
-                [answer appendFormat:@"%c", c];
-                
-                scanLocation = (int)[scanner scanLocation];
-                [scanner setScanLocation:scanLocation+1]; // skip over ';'
-                
-            } else {
-                // err ?
-            }
-        }
-        
-    }
-    
-    return answer;
-    
-}
+
 
 
 

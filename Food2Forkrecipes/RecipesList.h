@@ -13,7 +13,7 @@
 
 #endif
 
-@interface RecipesList:NSObject
+@interface RecipesList:NSMutableArray
 
 @property (strong, nonatomic) NSMutableArray *titlesList;
 @property (strong, nonatomic) NSMutableArray *imagesList;
