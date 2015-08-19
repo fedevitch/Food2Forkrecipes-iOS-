@@ -13,8 +13,9 @@
 
 #endif
 
-@interface RecipesList:NSMutableArray
+@interface RecipesList:NSObject
 
+@property (nonatomic) int count;
 @property (strong, nonatomic) NSMutableArray *titlesList;
 @property (strong, nonatomic) NSMutableArray *imagesList;
 @property (strong, nonatomic) NSMutableArray *publisher;
@@ -24,4 +25,6 @@
 @property (strong, nonatomic) NSMutableArray *source_url;
 @property (strong, nonatomic) NSMutableArray *f2f_url;
 
+-(void)listInitialize;
+-(void)addDataFromAnotherRecipesList: (RecipesList*)anotherList;
 @end

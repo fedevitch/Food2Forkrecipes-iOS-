@@ -11,12 +11,11 @@
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
 
-#import "HCSStarRatingView/HCSStarRatingView.h"
-
+//#import "HCSStarRatingView/HCSStarRatingView.h"
 #import "MWFeedParser/Classes/NSString+HTML.h"
 
 
-@class RecipesList;
+//@class RecipesList;
 
 @interface ViewController ()
 
@@ -44,9 +43,11 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
 
 int currentPage = 1;
 int currentDisplayType = 1;
+
+int selectedItem = 0;
 NSString* choosedId;
 bool updatingList = NO;
-
+RecipesListQuery *listQuery;
 
 //@synthesize recipesDisplayTable;
 
@@ -57,81 +58,39 @@ bool updatingList = NO;
     self.recipesList = [[RecipesList alloc] init];
     self.recipesDisplayTable.delegate = self;
     self.recipesDisplayTable.dataSource = self;
-    //[self.recipesDisplayTable registerClass:[UITableViewCell class]  forCellReuseIdentifier:@"Item"];
-    NSLog(@"viewDidLoad: Is returning back? : %@",isReturningBack?@"Yes":@"No");
-    if (isReturningBack) {
-        [self.recipesDisplayTable reloadData];
-    }
-    else{
-
-        [self listsInitialize];
-        [self sendQuery:Trending SearchQuery:@"" page:currentPage];
-    }
-
     
-
-}
-
-
--(void)returnBack:(DisplayRecipeController *)displayRecipe isReturn:(BOOL)isReturning recipesList:(RecipesList *)savedList
-{
-//    self.recipesDisplayTable.delegate = self;
-//    self.recipesDisplayTable.dataSource = self;
-    isReturningBack = isReturning;
+    listQuery = [[RecipesListQuery alloc] init];
+    listQuery.delegate = self;
+    currentPage = 1;
     [self listsInitialize];
-    self.recipesList = savedList;
-    //[self.recipesDisplayTable reloadData];
-    NSLog(@"Delegate returnBack: isReturningBack set to: %@",isReturningBack?@"Yes":@"No");
-    NSLog(@"Delegate returnBack: what is returned: titles %@",self.recipesList.titlesList);
-    [self.recipesDisplayTable reloadData];
-    [self printLog];
-    //    NSLog(@"Delegate returnBack: we getted data back");
+    [self sendQuery:Trending SearchQuery:@"" page:currentPage];
 }
 
 -(void)printLog{
     NSLog(@"Log: current var state: %@",self.recipesList.recipe_id);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    NSLog(@"viewWillAppear: reloading data");
-    [self.recipesDisplayTable reloadData]; // to reload selected cell
+-(void)tableReloadData{
+    [self.recipesList addDataFromAnotherRecipesList:listQuery.responseList];
+    [self.recipesDisplayTable reloadData];
+    //dispatch_async(dispatch_get_main_queue(), ^{[self.recipesDisplayTable reloadData];});
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
     if ([segue.identifier isEqualToString:@"showRecipe"]) {
-        //UINavigationController *navigationController = (UINavigationController*)segue.destinationViewController;//uncomment if using nav controller
-        //DisplayRecipeController *recipeDetails = (DisplayRecipeController*)navigationController.topViewController;
         DisplayRecipeController *recipeDetails = (DisplayRecipeController*)segue.destinationViewController;
-//        recipeDetails.modalPresentationStyle = UIModalPresentationPopover;
-        UIPopoverPresentationController *detailsPresentation = recipeDetails.popoverPresentationController;
-        detailsPresentation.delegate = (id<UIPopoverPresentationControllerDelegate>)self;
-        recipeDetails.delegate = self;
         recipeDetails.recipeId = self.recipesList.recipe_id[selectedItem];
-        recipeDetails.listSaver = self.recipesList;
-
-//        [self.popoverPresentationController dismissalTransitionDidEnd:YES];
-//        self.popoverPresentation = ((UIStoryboardPopoverSegue*)segue).popoverController;
         NSLog(@"Sending recipeId: %@",recipeDetails.recipeId);
-        
-
     }
-//    if ([segue.identifier isEqualToString:@"returnToList"]) {
-//        NSLog(@"Main view: returning to list..");
-//    }
 }
 
 #pragma mark - Custom methods
 
-int recipesCount = 0;
-int selectedItem = 0;
-
 -(int)getCount
 {
-    return recipesCount;
+    return self.recipesList.count;
 }
 
 -(RecipesList*)getRecipesList{
@@ -143,7 +102,6 @@ int selectedItem = 0;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = @"Recipes";
-        //self.tabBarItem.image = [UIImage imageNamed:@"scr1"];
     }
     return self;
 }
@@ -153,114 +111,19 @@ int selectedItem = 0;
 {
 
     //[self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t",baseURL,apiKey]];//default value
-    if (queryType == Trending) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=t&page=%i",baseURL,apiKey,currentPage]];
-        currentDisplayType = Trending;
-        self.navigationItem.title = @"Trending";
-//        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
-
-    }
-    if (queryType == TopRated) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&sort=r&page=%i",baseURL,apiKey,currentPage]];
-        currentDisplayType = TopRated;
-        self.navigationItem.title = @"Top Rated";
-//        self.labelTitle.text = [NSString stringWithFormat:@"Current page:%i",currentPage];
-
-    }
+    currentDisplayType = queryType;
     if (queryType == Search) {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@search?key=%@&q=%@&page=%i",baseURL,apiKey,Query,currentPage]];
-        currentDisplayType = Search;
-        self.navigationItem.title =[NSString stringWithFormat:@"Search results for: %@",Query ];
+        //self.navigationItem.title =[NSString stringWithFormat:@"Search results for: %@",Query ];
         [self.displayTypeChanger setSelectedSegmentIndex:UISegmentedControlNoSegment];
-        //currentPage = 1;
     }
-    
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.queryResponse = [NSJSONSerialization
-                              JSONObjectWithData:responseObject
-                              options:NSJSONReadingMutableContainers
-                              error:nil];
-        [self requestSuccessfull];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error: %@",  [error localizedDescription]);
-        //using alertview
-        NSString *message = [NSString stringWithFormat:@"error:  %@",[error localizedDescription] ];
-        
-        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:nil
-                                              otherButtonTitles:nil, nil];
-        [toast show];
-        
-        int duration = 1; // duration in seconds
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [toast dismissWithClickedButtonIndex:0 animated:YES];
-        });
-    }];
-    
-    [operation start];
-    
-}
-
--(void) requestSuccessfull
-{
-    NSLog(@"Query success. Count: %@",self.queryResponse[@"count"]);
-    recipesCount += (int)[self.queryResponse[@"count"] integerValue];
-    
-    NSArray *receivedList = self.queryResponse[@"recipes"];
-    
-//    int index = 0;//for log output
-
-    
-    for(NSDictionary *element in receivedList){
-        //NSString *title = [[NSString alloc] initWithString:element[@"title"]];
-        //[title stringByEncodingHTMLEntities];
-        //add data
-        [self.recipesList.titlesList addObject:[element[@"title"] stringByDecodingHTMLEntities]];
-        [self.recipesList.imagesList addObject:element[@"image_url"]];
-        [self.recipesList.publisher addObject:element[@"publisher"]];
-        [self.recipesList.social_rank addObject:element[@"social_rank"]];
-        [self.recipesList.recipe_id addObject:element[@"recipe_id"]];
-        [self.recipesList.publisher_url addObject:element[@"publisher_url"]];
-        [self.recipesList.source_url addObject:element[@"source_url"]];
-        
-        //log messages
-//        NSLog(@"index %i", index+1);
-//        NSLog(@"Title: %@",self.titlesList[index]);
-        
-//        NSLog(@"Image: %@",self.imagesList[index]);
-//        NSLog(@"publisher: %@",self.publisher[index]);
-//        NSLog(@"rank: %@",self.social_rank[index]);
-//        NSLog(@"id: %@",self.recipe_id[index]);
-//        NSLog(@"publisher URL: %@",self.publisher_url[index]);
-//        NSLog(@"source URL: %@",self.source_url[index]);
-//        index++;
-        
-    }
-
-//    NSLog(@"Title: %@",[self.recipesList titlesList]);
+    [listQuery sendQuery:currentDisplayType SearchQuery:Query page:currentPage];
     [self.recipesDisplayTable reloadData];
-//    updatingList = NO;
-    
 }
+
 
 -(void)listsInitialize//initialize arrays with nil values
 {
-    NSLog(@"listsInitialize: doing alloc-initWithObjects: nil for lists");
-    self.recipesList.titlesList = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.imagesList = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.publisher = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.social_rank = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.recipe_id = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.publisher_url = [[NSMutableArray alloc] initWithObjects: nil];
-    self.recipesList.source_url = [[NSMutableArray alloc] initWithObjects: nil];
+    [self.recipesList listInitialize];
 }
 
 #pragma mark - controls
@@ -273,20 +136,20 @@ int selectedItem = 0;
     [self listsInitialize];
     self.searchBar.text = @"";
     currentPage = 1;
-    recipesCount = 0;
-    [self.recipesDisplayTable reloadData];
+    
     if (selectedSegment == 0) {
         //toggle the correct view to be visible
         NSLog(@"switched to Top Rated");
         
         [self sendQuery:TopRated SearchQuery:@"" page:currentPage];
     }
-    else{
+    if (selectedSegment == 1){
         //toggle the correct view to be visible
         
         NSLog(@"switched to Trending");
         [self sendQuery:Trending SearchQuery:@"" page:currentPage];
      }
+    [self.recipesDisplayTable reloadData];
 }
 
 /*
@@ -344,18 +207,18 @@ int selectedItem = 0;
 
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [searchBar resignFirstResponder];
+    //[searchBar resignFirstResponder];
     // set variables to default values
-    [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
+    //[self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
     currentPage = 1;
-    recipesCount = 0;
+    
     [self listsInitialize];
-    [self.recipesDisplayTable reloadData];
     NSLog(@"start search...");
     currentDisplayType = Search;
     [self sendQuery:currentDisplayType SearchQuery:[self.searchBar text] page:currentPage];
+//    [self.recipesDisplayTable reloadData];
 //    self.labelTitle.text = [NSString stringWithFormat:@"Search results:%i",recipesCount];
 
 }
@@ -385,15 +248,12 @@ int selectedItem = 0;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Item"];
-    
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Item"];
     }
-
-//    cell.textLabel.text = recipesList.titlesList[indexPath.row];
-     cell.textLabel.text =  self.recipesList.titlesList[indexPath.row];
+    cell.textLabel.text =  self.recipesList.titlesList[indexPath.row];
     NSString *details = [[NSString alloc] initWithFormat:@"publisher: %@, rank: %@", self.recipesList.publisher[indexPath.row], self.recipesList.social_rank[indexPath.row]];
-    NSLog(@"cellForRowAtIndexPath: upd cell with data: %li title: %@\ndetail: %@\nimg: %@",indexPath.row, cell.textLabel.text, details, self.recipesList.imagesList[indexPath.row]);
+//    NSLog(@"cellForRowAtIndexPath: upd cell with data: %li title: %@\ndetail: %@\nimg: %@",indexPath.row, cell.textLabel.text, details, self.recipesList.imagesList[indexPath.row]);
     cell.detailTextLabel.text = details;
 //    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];//simple and not optimal
     [cell.imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
@@ -420,7 +280,6 @@ int selectedItem = 0;
 //    starRatingView.tintColor = [UIColor redColor];
 //    [starRatingView addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
 //    [cell.contentView addSubview:starRatingView];
-    
     return cell;
 }
 
@@ -433,15 +292,25 @@ int selectedItem = 0;
     
     if (self.recipesList.recipe_id[indexPath.row] == NULL) {
         NSLog(@"No data, can't display!");
+        NSString *message = @"Error: seems like this item is empty";
+        
+        UIAlertView *toast = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:nil, nil];
+        [toast show];
+        
+        int duration = 5; // duration in seconds
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [toast dismissWithClickedButtonIndex:0 animated:YES];
+        });
         return;
     }
     
     self.choosedId = self.recipesList.recipe_id[indexPath.row];
-    
-    isReturningBack = YES;
-    
     [self performSegueWithIdentifier:@"showRecipe" sender:self];
-
 }
 
 // Override to support conditional editing of the table view.

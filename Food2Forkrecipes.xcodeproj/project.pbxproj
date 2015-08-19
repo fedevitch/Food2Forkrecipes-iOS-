@@ -12,6 +12,9 @@
 		AC2C14451B82374500739C5C /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2C14441B82374500739C5C /* libAFNetworking.a */; };
 		AC2C14471B82374900739C5C /* libMWFeedParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2C14461B82374900739C5C /* libMWFeedParser.a */; };
 		ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */; };
+		ACDB05BB1B8476E700F514C0 /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05BA1B8476E700F514C0 /* Recipe.m */; };
+		ACDB05BE1B84A63E00F514C0 /* RecipesListQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */; };
+		ACDB05C11B84CE2E00F514C0 /* RecipeDetailsQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */; };
 		ACE079971B72316100311028 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079961B72316100311028 /* main.m */; };
 		ACE0799A1B72316100311028 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079991B72316100311028 /* AppDelegate.m */; };
 		ACE0799D1B72316100311028 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE0799C1B72316100311028 /* ViewController.m */; };
@@ -41,6 +44,12 @@
 		AC2C14461B82374900739C5C /* libMWFeedParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWFeedParser.a; path = "Pods/../build/Debug-iphoneos/libMWFeedParser.a"; sourceTree = "<group>"; };
 		ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayRecipeController.h; sourceTree = "<group>"; };
 		ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayRecipeController.m; sourceTree = "<group>"; };
+		ACDB05B91B8476D200F514C0 /* Recipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
+		ACDB05BA1B8476E700F514C0 /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
+		ACDB05BC1B84A62500F514C0 /* RecipesListQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesListQuery.h; sourceTree = "<group>"; };
+		ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesListQuery.m; sourceTree = "<group>"; };
+		ACDB05BF1B84CE1900F514C0 /* RecipeDetailsQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeDetailsQuery.h; sourceTree = "<group>"; };
+		ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailsQuery.m; sourceTree = "<group>"; };
 		ACE079911B72316100311028 /* Food2Forkrecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Forkrecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE079951B72316100311028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACE079961B72316100311028 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,11 +131,17 @@
 				ACE079991B72316100311028 /* AppDelegate.m */,
 				ACE0799B1B72316100311028 /* ViewController.h */,
 				ACE0799C1B72316100311028 /* ViewController.m */,
-				ACEDE1F81B7DEB3D000CCF93 /* RecipesList.h */,
-				ACEDE1F61B7DEB28000CCF93 /* RecipesList.m */,
-				ACE0799E1B72316100311028 /* Main.storyboard */,
+				ACDB05BC1B84A62500F514C0 /* RecipesListQuery.h */,
+				ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */,
+				ACDB05BF1B84CE1900F514C0 /* RecipeDetailsQuery.h */,
+				ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */,
 				ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */,
 				ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */,
+				ACEDE1F81B7DEB3D000CCF93 /* RecipesList.h */,
+				ACEDE1F61B7DEB28000CCF93 /* RecipesList.m */,
+				ACDB05B91B8476D200F514C0 /* Recipe.h */,
+				ACDB05BA1B8476E700F514C0 /* Recipe.m */,
+				ACE0799E1B72316100311028 /* Main.storyboard */,
 				ACE079A11B72316100311028 /* Images.xcassets */,
 				ACE079A31B72316100311028 /* LaunchScreen.xib */,
 				ACE079941B72316100311028 /* Supporting Files */,
@@ -321,7 +336,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACE0799D1B72316100311028 /* ViewController.m in Sources */,
+				ACDB05BB1B8476E700F514C0 /* Recipe.m in Sources */,
 				ACEDE1F71B7DEB28000CCF93 /* RecipesList.m in Sources */,
+				ACDB05C11B84CE2E00F514C0 /* RecipeDetailsQuery.m in Sources */,
+				ACDB05BE1B84A63E00F514C0 /* RecipesListQuery.m in Sources */,
 				ACE0799A1B72316100311028 /* AppDelegate.m in Sources */,
 				ACE079971B72316100311028 /* main.m in Sources */,
 				ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */,

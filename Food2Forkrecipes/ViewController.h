@@ -9,22 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "DisplayRecipeController.h"
 #import "RecipesList.h"
+#import "RecipesListQuery.h"
 
-@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,ReturnBack>
+
+@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate,InterfaceAcess>
 
 //controls
 @property (strong, nonatomic) IBOutlet UITableView *recipesDisplayTable;
-
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *displayTypeChanger;
 
-
 @property (strong, nonatomic) NSString *choosedId;
 
-@property (weak) UIPopoverController *popoverPresentation;
-
 //data containers for list
-@property (strong, nonatomic) NSDictionary *queryResponse;
+@property (strong, nonatomic) NSDictionary *queryResponse;//move
 @property (strong, nonatomic) NSMutableArray *titlesList;
 @property (strong, nonatomic) NSMutableArray *imagesList;
 @property (strong, nonatomic) NSMutableArray *publisher;
