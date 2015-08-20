@@ -9,31 +9,31 @@
 #import <Foundation/Foundation.h>
 #import "Recipe.h"
 
+@implementation ingredients_list
+
+@synthesize title;
+@synthesize social_rank;
+@synthesize source_url;
+@synthesize publisher;
+@synthesize publisher_url;
+@synthesize f2f_url;
+@synthesize image_url;
+@synthesize ingredients;
+
+@end
+
 @interface Recipe()
 
 @end
 
 @implementation Recipe
 
-@synthesize itemImageLink;
-@synthesize titleRecipe;
-@synthesize item_f2f_link;
-@synthesize item_source_url;
-@synthesize item_social_rank;
-@synthesize item_publisher_url;
-@synthesize item_publisher;
-@synthesize ingredients;
+@synthesize recipe;
 
--(void)listInitialize{
+
+-(void)initWithNil{
     NSLog(@"Recipe: init recipe");
-    self.titleRecipe = [[NSString alloc] init];
-    self.item_f2f_link = [[NSString alloc] init];
-    self.item_publisher = [[NSString alloc] init];
-    self.item_publisher_url = [[NSString alloc] init];
-    self.item_social_rank = [[NSString alloc] init];
-    self.item_source_url = [[NSString alloc] init];
-    self.itemImageLink = [[NSString alloc] init];
-    self.ingredients = [[NSMutableArray alloc] init];
+    
 }
 
 @end

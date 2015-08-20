@@ -13,18 +13,31 @@
 
 #endif
 
-@interface RecipesList:NSObject
+#import "JSONModel/JSONModel.h"
+
+
+@interface recipes_list:JSONModel
+
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *publisher;
+@property (strong, nonatomic) NSString *social_rank;
+@property (strong, nonatomic) NSString *recipe_id;
+@property (strong, nonatomic) NSString *publisher_url;
+@property (strong, nonatomic) NSString *source_url;
+@property (strong, nonatomic) NSString *f2f_url;
+
+@end
+
+@protocol recipes_list
+@end
+
+@interface RecipesList:JSONModel
 
 @property (nonatomic) int count;
-@property (strong, nonatomic) NSMutableArray *titlesList;
-@property (strong, nonatomic) NSMutableArray *imagesList;
-@property (strong, nonatomic) NSMutableArray *publisher;
-@property (strong, nonatomic) NSMutableArray *social_rank;
-@property (strong, nonatomic) NSMutableArray *recipe_id;
-@property (strong, nonatomic) NSMutableArray *publisher_url;
-@property (strong, nonatomic) NSMutableArray *source_url;
-@property (strong, nonatomic) NSMutableArray *f2f_url;
+@property (strong, nonatomic) NSMutableArray<recipes_list> *recipes;
 
--(void)listInitialize;
+-(void)initWithNil;
 -(void)addDataFromAnotherRecipesList: (RecipesList*)anotherList;
+
 @end

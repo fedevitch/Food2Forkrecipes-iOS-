@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E15C4992DF3F42B4E98F317"
-               BuildableName = "HCSStarRatingView.framework"
-               BlueprintName = "HCSStarRatingView"
+               BlueprintIdentifier = "900E6FD992378691435FACD8"
+               BuildableName = "JSONModel.framework"
+               BlueprintName = "JSONModel"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

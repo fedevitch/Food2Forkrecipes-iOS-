@@ -7,4 +7,5 @@ use_frameworks!
 
 pod 'AFNetworking', '~> 2.5'
 pod 'MWFeedParser'
-pod 'HCSStarRatingView', '~> 1.2'
+#pod 'HCSStarRatingView', '~> 1.2'
+pod 'JSONModel'

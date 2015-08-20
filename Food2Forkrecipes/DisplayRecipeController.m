@@ -32,7 +32,7 @@ RecipeDetailsQuery *detailsRecipe;
     self.navigationItem.leftItemsSupplementBackButton = YES;
     NSLog(@"display details init");
     self.recipe = [[Recipe alloc] init];
-    [self initObject];
+    [self.recipe initWithNil];
     detailsRecipe = [[RecipeDetailsQuery alloc] init];
     detailsRecipe.delegate = self;
     [detailsRecipe getRecipe:self.recipeId];
@@ -43,28 +43,25 @@ RecipeDetailsQuery *detailsRecipe;
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
 }
 
--(void)initObject{
-    [self.recipe listInitialize];
-}
 
 -(void) displayRecipe
 {
     self.recipe = detailsRecipe.responseRecipe;
-    self.navigationItem.title = self.recipe.titleRecipe;
-    self.title = self.recipe.titleRecipe;
+    self.navigationItem.title = [self.recipe.recipe objectForKey:@[@"title"]];
+    self.title = [self.recipe.recipe objectForKey:@[@"title"]];
 
-    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.recipe.item_publisher, self.recipe.item_social_rank]];
+    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",[self.recipe.recipe objectForKey:@[@"publisher"]], [self.recipe.recipe objectForKey:@[@"social_rank"]]]];
 
-    self.navigationController.navigationBar.topItem.title = self.recipe.titleRecipe;
+    self.navigationController.navigationBar.topItem.title = [self.recipe.recipe objectForKey:@[@"title"]];
 
 //    NSLog(@"text: %@",Recipe);
     //self.Text.text = [self parseHtmlCodes:Recipe];
-    self.Text.text = @"";
-    for (int i = 0; i < [self.recipe.ingredients count]; i++) {
-        self.Text.text = [NSString stringWithFormat:@"%@\n%@",[self.Text text],self.recipe.ingredients[i]];
-    }
+    self.Text.text = [self.recipe.recipe objectForKey:@[@"ingredients"]];
+    //for (int i = 0; i < [self.recipe.ingredients count]; i++) {
+    //    self.Text.text = [NSString stringWithFormat:@"%@\n%@",[self.Text text],[self.recipe.recipe objectForKey:[@"ingredients"]];
+    //}
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.recipe.itemImageLink]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self.recipe.recipe objectForKey:@[@"image_url"]]]];
     
     __weak UIImageView *ImagePlaceholder = self.ItemImage;
     
@@ -80,17 +77,17 @@ RecipeDetailsQuery *detailsRecipe;
 
 -(IBAction)viewSource
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.recipe.item_source_url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.recipe.recipe objectForKey:@[@"source_url"]]]];
 }
 
 -(IBAction)viewPublisher
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.recipe.item_publisher_url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.recipe.recipe objectForKey:@[@"publisher_url"]]]];
 }
 
 -(IBAction)viewImage
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.recipe.itemImageLink]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[self.recipe.recipe objectForKey:@[@"image_url"]]]];
 }
 
 @end

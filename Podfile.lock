@@ -20,7 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - HCSStarRatingView (1.2)
+  - JSONModel (1.1.0)
   - MWFeedParser (1.0.1):
     - MWFeedParser/FeedParser (= 1.0.1)
     - MWFeedParser/NSDate+InternetDateTime (= 1.0.1)
@@ -33,12 +33,12 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
-  - HCSStarRatingView (~> 1.2)
+  - JSONModel
   - MWFeedParser
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  HCSStarRatingView: 95246884db2a02c7e82f12f5d4562428c2cc05f9
+  JSONModel: ec77e9865236a7a09d9cf7668df6b4b328d9ec1d
   MWFeedParser: 2cf646014c1baf6ad1b08c480b40a08180079247
 
 COCOAPODS: 0.38.2

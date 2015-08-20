@@ -12,18 +12,28 @@
 
 #endif
 
-@interface Recipe : NSObject
+#import "JSONModel/JSONModel.h"
 
-@property (strong, nonatomic) NSDictionary *queryResponseGet;
-@property (strong, nonatomic) NSString *titleRecipe;
-@property (strong, nonatomic) NSString *itemImageLink;
-@property (strong, nonatomic) NSString *item_f2f_link;
-@property (strong, nonatomic) NSString *item_source_url;
-@property (strong, nonatomic) NSString *item_publisher;
-@property (strong, nonatomic) NSString *item_publisher_url;
-@property (strong, nonatomic) NSString *item_social_rank;
-@property (strong, nonatomic) NSMutableArray *ingredients;
+@interface ingredients_list:JSONModel
 
--(void)listInitialize;
+@property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) NSString *image_url;
+@property (strong, nonatomic) NSString *f2f_url;
+@property (strong, nonatomic) NSString *source_url;
+@property (strong, nonatomic) NSString *publisher;
+@property (strong, nonatomic) NSString *publisher_url;
+@property (strong, nonatomic) NSString *social_rank;
+@property (strong, nonatomic) NSArray *ingredients;
+
+@end
+
+@protocol ingredients_list
+@end
+
+@interface Recipe : JSONModel
+
+@property (strong, nonatomic) NSDictionary<ingredients_list> *recipe;
+
+-(void)initWithNil;
 
 @end

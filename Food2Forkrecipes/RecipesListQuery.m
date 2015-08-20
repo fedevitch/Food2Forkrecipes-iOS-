@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Lubomyr Fedevych. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 #import "RecipesListQuery.h"
 #import "AFHTTPRequestOperation.h"
@@ -19,7 +20,6 @@
 //1 - trending
 //2 - top rated
 //3 - search
-
 
 static int const Trending = 1;
 static int const TopRated = 2;
@@ -73,47 +73,14 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
             [toast dismissWithClickedButtonIndex:0 animated:YES];
         });
     }];
-    
     [operation start];
-
 }
 
 -(void) requestSuccessfull
 {
-    self.responseList = [[RecipesList alloc] init];
-    [self.responseList listInitialize];
-    NSLog(@"Query success. Count: %@",self.queryResponse[@"count"]);
-    self.responseList.count += (int)[self.queryResponse[@"count"] integerValue];
-    
-    NSArray *receivedList = self.queryResponse[@"recipes"];
-    
-    //    int index = 0;//for log output    
-    
-    for(NSDictionary *element in receivedList){
-        //add data
-        [self.responseList.titlesList addObject:[element[@"title"] stringByDecodingHTMLEntities]];
-        [self.responseList.imagesList addObject:element[@"image_url"]];
-        [self.responseList.publisher addObject:element[@"publisher"]];
-        [self.responseList.social_rank addObject:element[@"social_rank"]];
-        [self.responseList.recipe_id addObject:element[@"recipe_id"]];
-        [self.responseList.publisher_url addObject:element[@"publisher_url"]];
-        [self.responseList.source_url addObject:element[@"source_url"]];
-        
-        //log messages
-        //        NSLog(@"index %i", index+1);
-        //        NSLog(@"Title: %@",self.titlesList[index]);
-        
-        //        NSLog(@"Image: %@",self.imagesList[index]);
-        //        NSLog(@"publisher: %@",self.publisher[index]);
-        //        NSLog(@"rank: %@",self.social_rank[index]);
-        //        NSLog(@"id: %@",self.recipe_id[index]);
-        //        NSLog(@"publisher URL: %@",self.publisher_url[index]);
-        //        NSLog(@"source URL: %@",self.source_url[index]);
-        //        index++;
-        
-    }
-    
-//    NSLog(@"Title: %@",[self.responseList titlesList]);
+    [self.responseList initWithNil];
+    self.responseList = [[RecipesList alloc] initWithDictionary:self.queryResponse error:nil];
+    NSLog(@"received:%@",[[self.responseList.recipes objectAtIndex:0] title]);
     [self.delegate tableReloadData];
 }
 

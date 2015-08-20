@@ -14,8 +14,6 @@
 
 #import "RecipesList.h"
 
-@class RecipesList;
-
 @protocol InterfaceAcess <NSObject>
 
 -(void)tableReloadData;

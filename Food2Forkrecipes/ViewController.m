@@ -56,22 +56,25 @@ RecipesListQuery *listQuery;
     // Do any additional setup after loading the view, typically from a nib.
     
     self.recipesList = [[RecipesList alloc] init];
+    
     self.recipesDisplayTable.delegate = self;
     self.recipesDisplayTable.dataSource = self;
     
     listQuery = [[RecipesListQuery alloc] init];
     listQuery.delegate = self;
     currentPage = 1;
-    [self listsInitialize];
+    [self.recipesList initWithNil];
     [self sendQuery:Trending SearchQuery:@"" page:currentPage];
 }
 
 -(void)printLog{
-    NSLog(@"Log: current var state: %@",self.recipesList.recipe_id);
+    //NSLog(@"Log: current var state: %@",self.recipesList.recipe_id);
 }
 
 -(void)tableReloadData{
+    //self.recipesList = listQuery.responseList;
     [self.recipesList addDataFromAnotherRecipesList:listQuery.responseList];
+    NSLog(@"self.recipesList:%@",[self.recipesList.recipes objectAtIndex:0]);
     [self.recipesDisplayTable reloadData];
     //dispatch_async(dispatch_get_main_queue(), ^{[self.recipesDisplayTable reloadData];});
 }
@@ -81,7 +84,7 @@ RecipesListQuery *listQuery;
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
     if ([segue.identifier isEqualToString:@"showRecipe"]) {
         DisplayRecipeController *recipeDetails = (DisplayRecipeController*)segue.destinationViewController;
-        recipeDetails.recipeId = self.recipesList.recipe_id[selectedItem];
+        recipeDetails.recipeId = [[self.recipesList.recipes objectAtIndex:selectedItem] recipeId];
         NSLog(@"Sending recipeId: %@",recipeDetails.recipeId);
     }
 }
@@ -120,12 +123,6 @@ RecipesListQuery *listQuery;
     [self.recipesDisplayTable reloadData];
 }
 
-
--(void)listsInitialize//initialize arrays with nil values
-{
-    [self.recipesList listInitialize];
-}
-
 #pragma mark - controls
 
 - (IBAction)segmentSwitch:(id)sender {
@@ -133,7 +130,7 @@ RecipesListQuery *listQuery;
     NSInteger selectedSegment = segmentedControl.selectedSegmentIndex;
     [self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
         // set variables to default values
-    [self listsInitialize];
+    [self.recipesList initWithNil];
     self.searchBar.text = @"";
     currentPage = 1;
     
@@ -214,7 +211,7 @@ RecipesListQuery *listQuery;
     //[self.recipesDisplayTable setContentOffset:CGPointZero animated:YES];//scroll up tableview
     currentPage = 1;
     
-    [self listsInitialize];
+    [self.recipesList initWithNil];
     NSLog(@"start search...");
     currentDisplayType = Search;
     [self sendQuery:currentDisplayType SearchQuery:[self.searchBar text] page:currentPage];
@@ -251,14 +248,14 @@ RecipesListQuery *listQuery;
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Item"];
     }
-    cell.textLabel.text =  self.recipesList.titlesList[indexPath.row];
-    NSString *details = [[NSString alloc] initWithFormat:@"publisher: %@, rank: %@", self.recipesList.publisher[indexPath.row], self.recipesList.social_rank[indexPath.row]];
+    cell.textLabel.text =  [[self.recipesList.recipes objectAtIndex:indexPath.row] title];
+    NSString *details = [[NSString alloc] initWithFormat:@"publisher: %@, rank: %@", [[self.recipesList.recipes objectAtIndex:indexPath.row] publisher], [[self.recipesList.recipes objectAtIndex:indexPath.row] social_rank]];
 //    NSLog(@"cellForRowAtIndexPath: upd cell with data: %li title: %@\ndetail: %@\nimg: %@",indexPath.row, cell.textLabel.text, details, self.recipesList.imagesList[indexPath.row]);
     cell.detailTextLabel.text = details;
 //    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesList[indexPath.row]]];//simple and not optimal
     [cell.imageView setImage:[UIImage imageNamed:@"placeholder.png"]];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.recipesList.imagesList[indexPath.row]]
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[[self.recipesList.recipes objectAtIndex:indexPath.row] image_url]]
                                         cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                          timeoutInterval:cacheInterval];
     
@@ -286,11 +283,11 @@ RecipesListQuery *listQuery;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"item selected: %li, rId:%@, sender: %@",indexPath.row,self.recipesList.recipe_id[indexPath.row],self);
+    NSLog(@"item selected: %li, rId:%@, sender: %@",indexPath.row,[[self.recipesList.recipes objectAtIndex:indexPath.row] recipe_id],self);
     
     selectedItem = (int)indexPath.row;
     
-    if (self.recipesList.recipe_id[indexPath.row] == NULL) {
+    if ([[self.recipesList.recipes objectAtIndex:indexPath.row] recipe_id] == NULL) {
         NSLog(@"No data, can't display!");
         NSString *message = @"Error: seems like this item is empty";
         
@@ -309,7 +306,7 @@ RecipesListQuery *listQuery;
         return;
     }
     
-    self.choosedId = self.recipesList.recipe_id[indexPath.row];
+    self.choosedId = [[self.recipesList.recipes objectAtIndex:indexPath.row] recipe_id];
     [self performSegueWithIdentifier:@"showRecipe" sender:self];
 }
 
