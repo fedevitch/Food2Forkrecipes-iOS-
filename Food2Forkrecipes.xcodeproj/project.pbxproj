@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8736C2FE1C59A2D720DD4713 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 289FF162D15AEDB0D4BAFE59 /* libPods.a */; };
-		ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */; };
+		14C4A6DD5D8D99F6D8316065 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6BFCC5646D6C896D4E94DDC /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */; };
+		ACDB05BB1B8476E700F514C0 /* RecipeDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05BA1B8476E700F514C0 /* RecipeDetails.m */; };
+		ACDB05BE1B84A63E00F514C0 /* RecipesListQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */; };
+		ACDB05C11B84CE2E00F514C0 /* RecipeDetailsQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */; };
 		ACE079971B72316100311028 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079961B72316100311028 /* main.m */; };
 		ACE0799A1B72316100311028 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE079991B72316100311028 /* AppDelegate.m */; };
 		ACE0799D1B72316100311028 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE0799C1B72316100311028 /* ViewController.m */; };
@@ -31,12 +33,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		289FF162D15AEDB0D4BAFE59 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		37113D7B9FCE8F714B579F96 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6E21FBC70E81B9BD97B74836 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9377D38E94E7983C0E5F9234 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../../../../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		ACD74BBC1B74D8E6008092E9 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
-		ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		AC2C143E1B822D9E00739C5C /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		AC2C14401B82373800739C5C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		AC2C14421B82374000739C5C /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "Pods/../build/Debug-iphoneos/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		AC2C14441B82374500739C5C /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "Pods/../build/Debug-iphoneos/libAFNetworking.a"; sourceTree = "<group>"; };
+		AC2C14461B82374900739C5C /* libMWFeedParser.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMWFeedParser.a; path = "Pods/../build/Debug-iphoneos/libMWFeedParser.a"; sourceTree = "<group>"; };
 		ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayRecipeController.h; sourceTree = "<group>"; };
 		ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayRecipeController.m; sourceTree = "<group>"; };
+		ACDB05B91B8476D200F514C0 /* RecipeDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeDetails.h; sourceTree = "<group>"; };
+		ACDB05BA1B8476E700F514C0 /* RecipeDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetails.m; sourceTree = "<group>"; };
+		ACDB05BC1B84A62500F514C0 /* RecipesListQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesListQuery.h; sourceTree = "<group>"; };
+		ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesListQuery.m; sourceTree = "<group>"; };
+		ACDB05BF1B84CE1900F514C0 /* RecipeDetailsQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipeDetailsQuery.h; sourceTree = "<group>"; };
+		ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailsQuery.m; sourceTree = "<group>"; };
 		ACE079911B72316100311028 /* Food2Forkrecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Food2Forkrecipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACE079951B72316100311028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACE079961B72316100311028 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -52,6 +64,7 @@
 		ACE079B01B72316100311028 /* Food2ForkrecipesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Food2ForkrecipesTests.m; sourceTree = "<group>"; };
 		ACEDE1F61B7DEB28000CCF93 /* RecipesList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesList.m; sourceTree = "<group>"; };
 		ACEDE1F81B7DEB3D000CCF93 /* RecipesList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecipesList.h; sourceTree = "<group>"; };
+		E6BFCC5646D6C896D4E94DDC /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84149970EC4B88F0BE25DE7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../../../../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8736C2FE1C59A2D720DD4713 /* libPods.a in Frameworks */,
+				14C4A6DD5D8D99F6D8316065 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +90,12 @@
 		338063FFDC0763B0618CF793 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				289FF162D15AEDB0D4BAFE59 /* libPods.a */,
+				AC2C14461B82374900739C5C /* libMWFeedParser.a */,
+				AC2C14441B82374500739C5C /* libAFNetworking.a */,
+				AC2C14421B82374000739C5C /* libMBProgressHUD.a */,
+				AC2C14401B82373800739C5C /* Accelerate.framework */,
+				AC2C143E1B822D9E00739C5C /* libMBProgressHUD.a */,
+				E6BFCC5646D6C896D4E94DDC /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,15 +125,19 @@
 			children = (
 				ACE079981B72316100311028 /* AppDelegate.h */,
 				ACE079991B72316100311028 /* AppDelegate.m */,
-				ACD74BBC1B74D8E6008092E9 /* PhotoViewController.h */,
-				ACD74BBD1B74D8E6008092E9 /* PhotoViewController.m */,
 				ACE0799B1B72316100311028 /* ViewController.h */,
 				ACE0799C1B72316100311028 /* ViewController.m */,
-				ACEDE1F81B7DEB3D000CCF93 /* RecipesList.h */,
-				ACEDE1F61B7DEB28000CCF93 /* RecipesList.m */,
-				ACE0799E1B72316100311028 /* Main.storyboard */,
+				ACDB05BC1B84A62500F514C0 /* RecipesListQuery.h */,
+				ACDB05BD1B84A63E00F514C0 /* RecipesListQuery.m */,
+				ACDB05BF1B84CE1900F514C0 /* RecipeDetailsQuery.h */,
+				ACDB05C01B84CE2E00F514C0 /* RecipeDetailsQuery.m */,
 				ACDA01A51B79E3CC00E49DF2 /* DisplayRecipeController.h */,
 				ACDA01A61B79E3CC00E49DF2 /* DisplayRecipeController.m */,
+				ACEDE1F81B7DEB3D000CCF93 /* RecipesList.h */,
+				ACEDE1F61B7DEB28000CCF93 /* RecipesList.m */,
+				ACDB05B91B8476D200F514C0 /* RecipeDetails.h */,
+				ACDB05BA1B8476E700F514C0 /* RecipeDetails.m */,
+				ACE0799E1B72316100311028 /* Main.storyboard */,
 				ACE079A11B72316100311028 /* Images.xcassets */,
 				ACE079A31B72316100311028 /* LaunchScreen.xib */,
 				ACE079941B72316100311028 /* Supporting Files */,
@@ -154,6 +176,8 @@
 			children = (
 				E84149970EC4B88F0BE25DE7 /* Pods.debug.xcconfig */,
 				9377D38E94E7983C0E5F9234 /* Pods.release.xcconfig */,
+				6E21FBC70E81B9BD97B74836 /* Pods.debug.xcconfig */,
+				37113D7B9FCE8F714B579F96 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -170,6 +194,7 @@
 				ACE0798E1B72316100311028 /* Frameworks */,
 				ACE0798F1B72316100311028 /* Resources */,
 				611A46F474D0A5C6278D6791 /* Copy Pods Resources */,
+				EC655F94CDF86631B658E605 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,6 +311,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EC655F94CDF86631B658E605 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -294,8 +334,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACE0799D1B72316100311028 /* ViewController.m in Sources */,
+				ACDB05BB1B8476E700F514C0 /* RecipeDetails.m in Sources */,
 				ACEDE1F71B7DEB28000CCF93 /* RecipesList.m in Sources */,
-				ACD74BBE1B74D8E6008092E9 /* PhotoViewController.m in Sources */,
+				ACDB05C11B84CE2E00F514C0 /* RecipeDetailsQuery.m in Sources */,
+				ACDB05BE1B84A63E00F514C0 /* RecipesListQuery.m in Sources */,
 				ACE0799A1B72316100311028 /* AppDelegate.m in Sources */,
 				ACE079971B72316100311028 /* main.m in Sources */,
 				ACDA01A71B79E3CC00E49DF2 /* DisplayRecipeController.m in Sources */,
@@ -342,8 +384,9 @@
 /* Begin XCBuildConfiguration section */
 		ACE079B21B72316100311028 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E21FBC70E81B9BD97B74836 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -376,8 +419,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				"MTL_ENABLE_DEBUG_INFO[arch=*]" = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -386,8 +436,9 @@
 		};
 		ACE079B31B72316100311028 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37113D7B9FCE8F714B579F96 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -414,6 +465,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -424,22 +481,46 @@
 		};
 		ACE079B51B72316100311028 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E84149970EC4B88F0BE25DE7 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 6E21FBC70E81B9BD97B74836 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/BuildHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+				);
 				INFOPLIST_FILE = Food2Forkrecipes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		ACE079B61B72316100311028 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9377D38E94E7983C0E5F9234 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 37113D7B9FCE8F714B579F96 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/BuildHeaders\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/MBProgressHUD\"",
+				);
 				INFOPLIST_FILE = Food2Forkrecipes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -488,7 +569,7 @@
 				ACE079B31B72316100311028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		ACE079B41B72316100311028 /* Build configuration list for PBXNativeTarget "Food2Forkrecipes" */ = {
 			isa = XCConfigurationList;
@@ -497,7 +578,7 @@
 				ACE079B61B72316100311028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		ACE079B71B72316100311028 /* Build configuration list for PBXNativeTarget "Food2ForkrecipesTests" */ = {
 			isa = XCConfigurationList;
@@ -506,7 +587,7 @@
 				ACE079B91B72316100311028 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

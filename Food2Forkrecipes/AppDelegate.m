@@ -7,10 +7,7 @@
 //
 
 #import "AppDelegate.h"
-//#import "AFNetworking.h"
-#import "TestQueryViewController.h"
 #import "ViewController.h"
-#import "RecipesTableViewController.h"
 
 @interface AppDelegate ()
 

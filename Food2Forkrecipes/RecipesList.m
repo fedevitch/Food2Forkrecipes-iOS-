@@ -8,17 +8,45 @@
 
 #import <Foundation/Foundation.h>
 #import "RecipesList.h"
+#import "JSONModel/JSONModelLib.h"
 
-@interface RecipesList()
+@implementation recipesList
 
-
+@synthesize title;
+@synthesize image_url;
+@synthesize publisher;
+@synthesize publisher_url;
+@synthesize social_rank;
+@synthesize source_url;
+@synthesize recipe_id;
+@synthesize f2f_url;
 
 @end
 
+@interface RecipesList()
 
+@end
 
 @implementation RecipesList
 
+@synthesize count;
+@synthesize recipes;
 
+-(void)initWithNil{
+    NSLog(@"listsInitialize: doing alloc-initWithObjects: nil for lists");
+    self.count = 0;
+    [self.recipes removeAllObjects];
+    self.recipes = (id)[NSMutableArray new];
+}
+
+-(void)addDataFromAnotherRecipesList:(RecipesList *)anotherList{
+    NSLog(@"Add: updating list with another: title of 0: %@",[[anotherList.recipes objectAtIndex:0] title]);
+    self.count += anotherList.count;    
+    [self.recipes addObjectsFromArray:anotherList.recipes];
+}
+
+-(NSString*)getRecipeId:(int)index{
+    return [self.recipes[index] recipe_id];
+}
 
 @end

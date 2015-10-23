@@ -10,117 +10,67 @@
 #import "DisplayRecipeController.h"
 #import "AFHTTPRequestOperation.h"
 #import "UIImageView+AFNetworking.h"
-#import "ViewController.h"
+//#import "MWFeedParser/Classes/NSString+HTML.h"
 
-@protocol ViewControllerBDelegate <NSObject>
-- (void)addItemViewController:(DisplayRecipeController *)controller didFinishViewItem:(NSString *)item;
+
+
+
+@interface DisplayRecipeController()
+
 @end
 
 @implementation DisplayRecipeController
 
 static NSString * const baseURL = @"http://food2fork.com/api/";
 static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
+RecipeDetailsQuery *detailsRecipe;
+NSString *publisherURL, *sourceURL, *imgURL;
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
     NSLog(@"display details init");
-    [self getRecipe:self.recipeId];
+    self.recipe = [[RecipeDetails alloc] init];
+    [self.recipe initWithNil];
+    detailsRecipe = [[RecipeDetailsQuery alloc] init];
+    detailsRecipe.delegate = self;
+    [detailsRecipe getRecipe:self.recipeId];
+    
     
 }
-
--(void)viewDidAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = NO;
-}
-
-//-(void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-//}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSLog(@"prepareForSegue... id: %@", segue.identifier);
-    if ([segue.identifier isEqualToString:@"returnToList"]) {
-        NSLog(@"DisplayRecipe: returning to list..");
-        [self.delegate returnBack:self isReturn:YES recipesList:self.listSaver];//returning saved data to list
-    }
 }
 
 
--(void) viewWillDisappear:(BOOL)animated {
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        // back button was pressed.  We know this is true because self is no longer
-        // in the navigation stack.
-    }
-    [super viewWillDisappear:animated];
-}
-
--(void)getRecipe:(NSString*)recipeId
+-(void) displayRecipe
 {
-    NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@get?key=%@&rId=%@",baseURL,apiKey,recipeId]];
-    
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.queryResponseGet = [NSJSONSerialization
-                              JSONObjectWithData:responseObject
-                              options:NSJSONReadingMutableContainers
-                              error:nil];
-        [self recipeRequestSuccessfull];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"error: %@",  [error localizedDescription]);
-    }];
-    
-    [operation start];
-}
+    NSLog(@"Getting item. ID:%@", self.recipeId);
+    self.recipe = detailsRecipe.responseRecipe;
+    NSLog(@"Display details -> received recipe: %@",self.recipe);
+    self.title = [self.recipe.recipe objectForKey:@[@"title"]];
 
--(void) recipeRequestSuccessfull
-{
-    NSLog(@"Get recipe: Query success =^_^= ID:%@",self.recipeId);
-    NSDictionary* recipeDetails = self.queryResponseGet[@"recipe"];
-    
-    self.textRecipe = [[NSMutableArray alloc] initWithObjects:recipeDetails[@"ingredients"],nil];
-    self.titleRecipe = [[NSString alloc] initWithString:recipeDetails[@"title"]];
-    self.itemImageLink = [[NSString alloc] initWithString:recipeDetails[@"image_url"]];
-    self.item_publisher = [[NSString alloc] initWithString:recipeDetails[@"publisher"]];
-    self.item_publisher_url = [[NSString alloc] initWithString:recipeDetails[@"publisher_url"]];
-    self.item_source_url = [[NSString alloc] initWithString:recipeDetails[@"source_url"]];
-    self.item_social_rank = [[NSString alloc] init];//with initWithString app crashes
-    self.item_social_rank = recipeDetails[@"social_rank"];
-    
-//    NSLog(@"title: %@",recipeDetails[@"title"]);
-//    NSLog(@"title: %@",self.titleRecipe);
-//    NSLog(@"rank: %@",self.item_social_rank);
-//    NSLog(@"publisher: %@",self.item_publisher);
-//    NSLog(@"image: %@",self.itemImageLink);
-//    NSLog(@"ingredients: %@",self.textRecipe);
-//    NSLog(@"publisher_url: %@",self.item_publisher_url);
-//    NSLog(@"source: %@",self.item_source_url);
-    
-    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.item_publisher, self.item_social_rank]];
+    [self.Subtitle setText: [NSString stringWithFormat:@"publisher: %@ rank: %@",self.recipe.recipe[@"publisher"], self.recipe.recipe[@"social_rank"]]];
+    NSLog(@"тайтл і футер вивів");
+    self.navigationController.navigationBar.topItem.title = self.recipe.recipe[@"title"];
 
-    
-    NSString* Recipe = @"";
 
-    for (NSDictionary* ingredient in recipeDetails[@"ingredients"]) {
-        //NSLog(@"%@",ingredient);
-        if ([ingredient  isEqual: @""]) {
-            NSLog(@"empty string found");
-            continue;
-        }
-        Recipe = [Recipe stringByAppendingString:[NSString stringWithFormat:@"%@\n",ingredient]];
-    }
-
-    self.navigationController.navigationBar.topItem.title = self.titleRecipe;
-
-//    NSLog(@"text: %@",Recipe);
     //self.Text.text = [self parseHtmlCodes:Recipe];
-    self.Text.text = Recipe;
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.itemImageLink]];
+    NSString *txt = @"";
+    
+    for (NSString *item in self.recipe.recipe[@"ingredients"]) {
+        txt = [NSString stringWithFormat:@"%@\n%@",txt,item];
+        //NSLog(@"%@",txt);
+
+    }
+    self.Text.text = txt;
+    
+    NSLog(@"майже все вивів");
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.recipe.recipe[@"image_url"]]];
     
     __weak UIImageView *ImagePlaceholder = self.ItemImage;
     
@@ -131,77 +81,25 @@ static NSString * const apiKey = @"31a6f30afb8d54d0e8f54b624e200e47";
                                 ImagePlaceholder.image = image;
                                 
                             } failure:nil];
-    
-}
-
-
--(NSString*)parseHtmlCodes:(NSString*)input { //this is a copy from ViewController
-    //parse html codes (but not all)
-    //source: http://stackoverflow.com/questions/1067652/converting-amp-to-in-objective-c
-    NSRange rangeOfHTMLEntity = [input rangeOfString:@"&#"];
-    if( NSNotFound == rangeOfHTMLEntity.location ) {
-        NSRange amp = [input rangeOfString:@"&amp;"];// catch the '&'
-        if (NSNotFound == amp.location) {
-            return input;
-        }
-        else{
-            input = [input stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-        }
-        return input;
-    }
-    
-    
-    NSMutableString* answer = [[NSMutableString alloc] init];
-    //[answer autorelease];
-    
-    NSScanner* scanner = [NSScanner scannerWithString:input];
-    [scanner setCharactersToBeSkipped:nil]; // we want all white-space
-    
-    while( ![scanner isAtEnd] ) {
-        
-        NSString* fragment;
-        [scanner scanUpToString:@"&#" intoString:&fragment];
-        if( nil != fragment ) { // e.g. '&#38; B'
-            [answer appendString:fragment];
-        }
-        
-        if( ![scanner isAtEnd] ) { // implicitly we scanned to the next '&#'
-            
-            int scanLocation = (int)[scanner scanLocation];
-            [scanner setScanLocation:scanLocation+2]; // skip over '&#'
-            
-            int htmlCode;
-            if( [scanner scanInt:&htmlCode] ) {
-                char c = htmlCode;
-                [answer appendFormat:@"%c", c];
-                
-                scanLocation = (int)[scanner scanLocation];
-                [scanner setScanLocation:scanLocation+1]; // skip over ';'
-                
-            } else {
-                // err ?
-            }
-        }
-        
-    }
-    
-    return answer;
-    
+    publisherURL = self.recipe.recipe[@"publisher_url"];
+    sourceURL = self.recipe.recipe[@"source_url"];
+    imgURL = self.recipe.recipe[@"image_url"];
+    NSLog(@"товаг'іщі! вивад акончєн!");
 }
 
 -(IBAction)viewSource
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.item_source_url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:sourceURL]];
 }
 
 -(IBAction)viewPublisher
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.item_publisher_url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:publisherURL]];
 }
 
 -(IBAction)viewImage
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.itemImageLink]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:imgURL]];
 }
 
 @end

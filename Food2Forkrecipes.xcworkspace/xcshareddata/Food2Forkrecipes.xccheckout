@@ -5,31 +5,27 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>EF2A7B5D-5C2C-4CF3-9770-0FF01D435DCC</string>
+	<string>6CDF5971-A941-4E09-BF4F-D84DB0DB3861</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Food2Forkrecipes</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>31A54307589F57C16B500660749E0A993C7A0769</key>
 		<string>https://bitbucket.org/fedevitch/food2forkrecipes.git</string>
-		<key>4FB91F1FD3A1495723BFA84AEF9850C728C119A6</key>
-		<string>https://github.com/fedevitch/Food2Forkrecipes-iOS-.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Food2Forkrecipes.xcworkspace</string>
+	<string>Food2Forkrecipes/Food2Forkrecipes.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>31A54307589F57C16B500660749E0A993C7A0769</key>
 		<string>../..</string>
-		<key>4FB91F1FD3A1495723BFA84AEF9850C728C119A6</key>
-		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/fedevitch/Food2Forkrecipes-iOS-.git</string>
+	<string>https://bitbucket.org/fedevitch/food2forkrecipes.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>4FB91F1FD3A1495723BFA84AEF9850C728C119A6</string>
+	<string>31A54307589F57C16B500660749E0A993C7A0769</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -38,15 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>31A54307589F57C16B500660749E0A993C7A0769</string>
 			<key>IDESourceControlWCCName</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>4FB91F1FD3A1495723BFA84AEF9850C728C119A6</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Food2Forkrecipes</string>
+			<string>Food2ForkRecipesIOS</string>
 		</dict>
 	</array>
 </dict>
